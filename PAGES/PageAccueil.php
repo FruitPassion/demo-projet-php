@@ -21,7 +21,7 @@ if (isset($_POST['deco'])) {
     <form method="post" action="">
         <button type="submit" name="deco" class="deconnection"> Se déconnecter </button> 
     </form>
-    <!-- faire en sorte que le bouton deconnexion déconnecte -->
+    
     <div class="co1">
         <a href="PageJoueurs.php" class="card">
             <img src="../img/team-icon.png" alt="Mes Joueurs">
