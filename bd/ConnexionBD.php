@@ -1,5 +1,5 @@
 <?php
-    require('Configuration_MySQL.php'); 
+    require('ConfigurationMySQL.php'); 
 
     try {
         // Connexion au serveur
@@ -18,7 +18,7 @@
         $linkpdo->exec("USE $db");
         
         // Exécution du script 
-        $BD_Script = 'Script_Creation_BD.sql';
+        $BD_Script = 'ScriptCreationBD.sql';
         if (file_exists($BD_Script)) {
             $BD = file_get_contents($BD_Script);
 
