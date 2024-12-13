@@ -1,0 +1,33 @@
+/* Page Connexion */
+
+body {
+    display: flex;
+    justify-content: center;
+    margin-top: 10%;
+    background-color: antiquewhite;
+}
+
+.co1 {
+    width: 60%;
+    padding-bottom: 15%;
+    background-color: burlywood;
+    border: solid;
+    border-color: darkgoldenrod;
+    border-radius: 10px;
+    
+}
+
+
+/* Page Accueil */
+
+
+
+/* Page Joueurs */
+
+
+
+/* Page Matchs */
+
+
+
+/* Page Statistiques */
