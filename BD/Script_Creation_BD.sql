@@ -6,7 +6,8 @@ CREATE TABLE Joueur(
    Date_naissance DATE,
    Taille DECIMAL(4,1)  ,
    Poids DECIMAL(4,1)  ,
-   Statut VARCHAR(15) ,
+   Statut ENUM('Actif', 'Blessé', 'Suspendu', 'Absent') DEFAULT 'Actif',
+   Photo VARCHAR(51),
    PRIMARY KEY(Numero_licence)
 );
 
