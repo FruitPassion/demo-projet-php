@@ -71,15 +71,15 @@
     <button class="logout">⏻</button>
     <div class="container">
         <a href="joueurs.html" class="card">
-            <img src="team-icon.png" alt="Mes Joueurs">
+            <img src="../IMG/team-icon.png" alt="Mes Joueurs">
             <span>Mes Joueurs</span>
         </a>
         <a href="matchs.html" class="card">
-            <img src="balai-icon.png" alt="Mes Matchs">
+            <img src="../IMG/balai-icon.png" alt="Mes Matchs">
             <span>Mes Matchs</span>
         </a>
         <a href="statistique.html" class="card">
-            <img src="pourcentage-icon.png" alt="Statistique">
+            <img src="../IMG/pourcentage-icon.png" alt="Statistique">
             <span>Statistique</span>
         </a>
     </div>

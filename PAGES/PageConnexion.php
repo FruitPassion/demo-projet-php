@@ -26,7 +26,7 @@ if (isset($_POST['login']) && isset($_POST['mdp'])) {
 if (isset($_POST['deco'])) {
     $_SESSION['connecter'] = false;
     session_destroy();
-    header('Location: Connexion.php');
+    header('Location: PageConnexion.php');
     exit;
 }
 ?>
