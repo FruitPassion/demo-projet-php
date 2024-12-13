@@ -18,7 +18,7 @@
         $linkpdo->exec("USE $db");
         
         // Exécution du script 
-        $BD_Script = 'ScriptCreationBD.sql';
+        $BD_Script = '../bd/ScriptCreationBD.sql';
         if (file_exists($BD_Script)) {
             $BD = file_get_contents($BD_Script);
 
@@ -28,7 +28,6 @@
 
             try {
                 $linkpdo->exec($BD);
-                echo "Le script SQL a été exécuté avec succès.<br>";
             } catch (Exception $e) {
                 die('Erreur lors de l\'exécution du script SQL : ' . $e->getMessage());
             }

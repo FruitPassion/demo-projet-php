@@ -1,4 +1,3 @@
-
 CREATE TABLE Joueur(
    Numero_licence INT ,
    Nom VARCHAR(30) ,
