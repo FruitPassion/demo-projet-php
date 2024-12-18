@@ -1,0 +1,39 @@
+services:
+  web: # fait tourner apache + php
+    build:
+      context: ./apache
+      dockerfile: Dockerfile
+    volumes: 
+      - volume-apache:/etc/apache2/sites-enabled
+      - ./php:/var/www/html
+    ports:
+      - 80:80
+    depends_on:
+      - bd
+      - phpmyadmin
+    restart: always
+  bd: # fait tourner mariadb
+    image: mariadb:latest
+    volumes:
+     - mariadb:/var/lib/mysql
+     - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+    - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: iutinfo
+      MYSQL_USER:  CM 
+      MYSQL_PASSWORD: iutinfo
+      MYSQL_DATABASE: ProjetPHP
+    restart: always
+  phpmyadmin: # fait tourner phpmyadmin
+    image: phpmyadmin:latest
+    ports:
+      - 8080:80
+    environment:
+      - PMA_HOST=bd
+      - PMA_PORT=3306
+    restart: always
+
+volumes:
+  volume-apache:
+  mariadb:

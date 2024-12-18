@@ -1,6 +1,6 @@
 <?php
-    $server='localhost';
+    $server='bd';
     $login='CM';
-    $mdp='$iutinfo';
+    $mdp='iutinfo';
     $db='ProjetPHP';
 ?>

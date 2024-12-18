@@ -1,4 +1,8 @@
-CREATE TABLE Joueur(
+CREATE DATABASE IF NOT EXISTS ProjetPHP;
+
+USE ProjetPHP;
+
+CREATE TABLE IF NOT EXISTS Joueur(
    Numero_licence INT ,
    Nom VARCHAR(30) ,
    Prenom VARCHAR(30) ,
@@ -10,7 +14,7 @@ CREATE TABLE Joueur(
    PRIMARY KEY(Numero_licence)
 );
 
-CREATE TABLE Match_(
+CREATE TABLE IF NOT EXISTS Match_(
    Id_Match INT AUTO_INCREMENT,
    Date_Match DATETIME,
    Nom_Equipe_Adverse VARCHAR(30) ,
@@ -19,21 +23,21 @@ CREATE TABLE Match_(
    PRIMARY KEY(Id_Match)
 );
 
-CREATE TABLE Commentaire(
+CREATE TABLE IF NOT EXISTS Commentaire(
    Id_Commentaire INT AUTO_INCREMENT,
    Numero_licence INT NOT NULL,
    PRIMARY KEY(Id_Commentaire),
    FOREIGN KEY(Numero_licence) REFERENCES Joueur(Numero_licence)
 );
 
-CREATE TABLE Connexion(
+CREATE TABLE IF NOT EXISTS Connexion(
    Id_Connexion INT AUTO_INCREMENT,
    Identifiant INT ,
    Mot_de_passe VARCHAR(50) ,
    PRIMARY KEY(Id_Connexion)
 );
 
-CREATE TABLE Participer(
+CREATE TABLE IF NOT EXISTS Participer(
    Numero_licence INT,
    Id_Match INT,
    Id_Equipe INT,

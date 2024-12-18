@@ -38,6 +38,7 @@ if (isset($_POST['deco'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../css/Connexion.css" rel="stylesheet">
+    <link rel="icon" href="../img/vif-dor.png">
     <title>Connexion</title>
 </head>
 <body>
