@@ -19,7 +19,7 @@ On peut maintenant travailler sur le projet.
 
 L'option ```-d``` sert à lancer le chargement en arrière plan.  
 L'option ```--build``` sert à construire le projet. Cette option est nécessaire pour le premier lancement uniquement.  
-Si le fichier *./apache/Dockerfile* ou/et *./apache/default.conf* subissent une modification, il faudra relancer la commande avec.
+Si le dossier *./apache* subit une modification, il faudra relancer la commande avec.
 
 Pour le fermer il suffit de marquer dans le terminal la commande suivante:  
 ```docker-compose down```   
