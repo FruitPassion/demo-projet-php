@@ -33,7 +33,7 @@ Chaque service correspond à un aspect de l'application.
 Nous en disposons de trois:
 - web : il permet de faire tourner apache et php
 - bd : il permet de créer mariadb
-- phpmyadmin : il permet de créer une interface pour gérer la bd.
+- phpmyadmin : il permet gérer la bd via une interface.
 
 Les volumes sont liés à un service et servent à conserver les données de celui-ci.  
 Pour en supprimer le contenu il faut ajouter une option lorsqu'on ferme le docker:  
@@ -45,7 +45,7 @@ La mise en place de ces services nous permettra de ne pas avoir à lancer XAMPP 
 
 La racine de notre projet n'est plus le dossier ```Projet_PHP``` mais le dossier ```php```.  
 Le chemin d'accès de l'application web est ```localhost/pages/..```.  
-Le chemin d'accès de phpmyadmin ```localhost/8080```.
+Le chemin d'accès de phpmyadmin ```localhost:8080```.
 
 ---
 Un grand merci à [FruitPassion](https://github.com/FruitPassion) pour son aide et ses explications ! 
