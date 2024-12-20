@@ -18,7 +18,7 @@
         $linkpdo->exec("USE $db");
         
         // Exécution du script 
-        $BD_Script = '../bd/ScriptCreationBD.sql';
+        $BD_Script = '../sql/init.sql';
         if (file_exists($BD_Script)) {
             $BD = file_get_contents($BD_Script);
 
