@@ -27,7 +27,7 @@ if (isset($_POST['deco'])) {
             <img src="../img/team-icon.png" alt="Mes Joueurs">
             <span>Mes Joueurs</span>
         </a>
-        <a href="PageMatchs.php" class="card">
+        <a href="PageMatch.php" class="card">
             <img src="../img/balai-icon.png" alt="Mes Matchs">
             <span>Mes Matchs</span>
         </a>
