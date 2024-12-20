@@ -1,6 +1,6 @@
 <?php
 // Inclure la connexion à la base de données depuis le dossier "BD"
-require('../BD/ConnexionBD.php');
+require('../bd/ConnexionBD.php');
 
 // Gestion du formulaire d'ajout de joueur
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

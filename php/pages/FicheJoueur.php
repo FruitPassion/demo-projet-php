@@ -1,6 +1,6 @@
 <?php
 // Inclure la connexion à la base de données depuis le dossier "BD"
-require_once __DIR__ . '../BD/connexion.php';
+require_once __DIR__ . '../bd/connexion.php';
 
 // Vérifier si l'ID est fourni
 if (isset($_GET['id'])) {
