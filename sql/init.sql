@@ -42,9 +42,11 @@ CREATE TABLE IF NOT EXISTS Participer(
    Id_Match INT,
    Id_Equipe INT,
    Titulaire BOOLEAN,
-   Evaluation DECIMAL(3,2)  ,
+   Evaluation DECIMAL(3,2),
    Poste VARCHAR(15) ,
    PRIMARY KEY(Numero_licence, Id_Match),
    FOREIGN KEY(Numero_licence) REFERENCES Joueur(Numero_licence),
    FOREIGN KEY(Id_Match) REFERENCES Match_(Id_Match)
 );
+
+
