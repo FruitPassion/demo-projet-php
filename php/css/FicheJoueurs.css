@@ -46,7 +46,7 @@ form textarea {
 }
 
 /* Boutons */
-button {
+.enregistrer {
     padding: 10px 10px;
     background-color: #28a745;
     color: white;
@@ -58,21 +58,26 @@ button {
     margin-top: 15px;
 }
 
-button:hover {
+.enregistrer:hover {
     background-color: #218838;
 }
 
-a {
-    display: block;
-    text-align: center;
+/* Lien de retour */
+.return {
+    padding: 10px;
+    background-color: burlywood;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
     font-size: 15px;
-    color: #007bff;
-    margin-top: 15px;
-    text-decoration: none;
+    margin-top: 20px;
+    transition: background-color 0.2s ease;
+    margin-left: 5%;
 }
 
-a:hover {
-    text-decoration: underline;
+.rtab:hover {
+    background-color: rgb(221, 171, 106);
 }
 
 /* Style pour le formulaire de suppression */
@@ -91,8 +96,15 @@ form button[type="submit"]:hover {
 
 /* Style pour enregistrer*/
 form button[type="save"] {
+    padding: 10px;
     background-color: #28a745;
-    margin-top: 8px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 15px;
+    margin-top: 20px;
+    transition: background-color 0.2s ease;
 }
 
 form button[type="save"]:hover {

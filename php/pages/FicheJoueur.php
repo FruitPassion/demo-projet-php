@@ -62,6 +62,9 @@ if (isset($_GET['id'])) {
 </head>
 <body>
 
+<!-- Lien pour retourner à la liste des joueurs -->
+<button class="return" href="PageJoueurs.php">Retour</button>
+
 <h1>Fiche de <?= htmlspecialchars($joueur['Prenom']) . ' ' . htmlspecialchars($joueur['Nom']); ?></h1>
 
 <!-- Affichage de la photo du joueur -->
@@ -72,7 +75,7 @@ if (isset($_GET['id'])) {
 <form method="POST">
     <label>Nom : <input type="text" name="Nom" value="<?= htmlspecialchars($joueur['Nom']); ?>"></label><br>
     <label>Prénom : <input type="text" name="Prenom" value="<?= htmlspecialchars($joueur['Prenom']); ?>"></label><br>
-    <label>Statut :
+    <label>Statut : <br>
         <select name="Statut">
             <option value="Actif" <?= $joueur['Statut'] === 'Actif' ? 'selected' : ''; ?>>Actif</option>
             <option value="Blessé" <?= $joueur['Statut'] === 'Blessé' ? 'selected' : ''; ?>>Blessé</option>
@@ -80,18 +83,13 @@ if (isset($_GET['id'])) {
             <option value="Absent" <?= $joueur['Statut'] === 'Absent' ? 'selected' : ''; ?>>Absent</option>
         </select>
     </label><br>
-    <label>Commentaire : <textarea name="Commentaire"><?= htmlspecialchars($joueur['Commentaire']); ?></textarea></label><br>
     <button type="save">Enregistrer</button>
 </form>
 
 <!-- Formulaire pour supprimer le joueur directement -->
 <form method="POST">
     <input type="hidden" name="supprimer" value="1">
-    <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce joueur ?');">Supprimer le joueur</button>
+    <button class="enregistrer" type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce joueur ?');">Supprimer le joueur</button>
 </form>
-
-<!-- Lien pour retourner à la liste des joueurs -->
-<a href="PageJoueurs.php">Retour</a>
-
 </body>
 </html>

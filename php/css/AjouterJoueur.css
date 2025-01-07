@@ -65,17 +65,21 @@ form button[type="submit"]:hover {
 }
 
 /* Lien de retour */
-a {
-    display: block;
-    text-align: center;
+.rtab {
+    padding: 10px;
+    background-color: burlywood;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
     font-size: 15px;
-    color: #007bff;
-    margin-top: 15px;
-    text-decoration: none;
+    margin-top: 20px;
+    transition: background-color 0.2s ease;
+    margin-left: 5%;
 }
 
-a:hover {
-    text-decoration: underline;
+.rtab:hover {
+    background-color: rgb(221, 171, 106);
 }
 
 /* Style pour les champs obligatoires */

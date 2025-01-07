@@ -42,6 +42,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 
+<!-- Lien pour revenir à la page principale -->
+<button class="rtab" href="PageJoueurs.php">Retour au tableau</button>
+
 <h1>Ajouter un nouveau joueur</h1>
 
 <form method="POST" enctype="multipart/form-data">
@@ -52,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <input type="text" id="prenom" name="prenom" required>
 
     <label for="numero_licence">Numéro de licence :</label>
-    <input type="text" id="numero_licence" name="numero_licence" required>
+    <input type="number" id="numero_licence" name="numero_licence" required>
 
     <label for="date_naissance">Date de naissance :</label>
     <input type="date" id="date_naissance" name="date_naissance" required>
@@ -76,9 +79,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <button type="submit">Ajouter le joueur</button>
 </form>
-
-<!-- Lien pour revenir à la page principale -->
-<a href="PageJoueurs.php">Retour au tableau</a>
-
 </body>
 </html>
