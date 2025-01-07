@@ -48,6 +48,7 @@ $joueurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <!-- Lien pour revenir à la page principale -->
 <a href="PageAccueil.php" class="btn btn-return">Retour à l'accueil</a>
+<a href="../pages/PageAccueil.php">Retour à l'accueil</a>
 
 </body>
 </html>
