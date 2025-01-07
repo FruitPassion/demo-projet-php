@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../css/AjouterJoueurs.css" rel="stylesheet">
+    <link href="../css/AjouterJoueur.css" rel="stylesheet">
     <title>Ajouter un joueur</title>
 </head>
 <body>

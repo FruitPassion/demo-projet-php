@@ -1,13 +1,12 @@
 <?php
-// Inclure la connexion à la base de données depuis le dossier "BD"
-require_once __DIR__ . '../bd/connexion.php';
+require('../bd/ConnexionBD.php');
 
 // Vérifier si l'ID est fourni
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
     // Préparer la requête pour récupérer les données du joueur
-    $stmt = $pdo->prepare('SELECT * FROM joueurs WHERE id = ?');
+    $stmt = $linkpdo->prepare('SELECT * FROM Joueur WHERE Numero_licence = ?');
     $stmt->execute([$id]);
     $joueur = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -15,26 +14,41 @@ if (isset($_GET['id'])) {
     if (!$joueur) {
         die('Joueur introuvable.');
     }
-} else {
-    die('ID non fourni.');
-}
 
-// Gestion de la mise à jour des données via le formulaire
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Récupérer et valider les données envoyées
-    $nom = trim($_POST['nom']);
-    $prenom = trim($_POST['prenom']);
-    $statut = $_POST['statut'];
-    $commentaire = trim($_POST['commentaire']);
+    // Suppression du joueur si le formulaire est soumis
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['supprimer'])) {
+        // Préparer la requête pour supprimer le joueur
+        $stmt = $linkpdo->prepare('DELETE FROM Joueur WHERE Numero_licence = ?');
+        $stmt->execute([$id]);
 
-    // Vérifier que les champs obligatoires sont remplis et que le statut est valide
-    if (empty($nom) || empty($prenom) || !in_array($statut, ['Actif', 'Blessé', 'Suspendu', 'Absent'])) {
-        die('Erreur : Champs invalides ou incomplets.');
+        // Redirection vers la page des joueurs après suppression
+        header('Location: PageJoueurs.php');
+        exit; // S'assurer que le script s'arrête après la redirection
     }
 
-    // Mise à jour dans la base de données
-    $stmt = $pdo->prepare('UPDATE joueurs SET nom = ?, prenom = ?, statut = ?, commentaire = ? WHERE id = ?');
-    $stmt->execute([$nom, $prenom, $statut, $commentaire, $id]);
+    // Mise à jour des informations du joueur si le formulaire est soumis
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['supprimer'])) {
+        // Récupérer les données envoyées
+        $nom = trim($_POST['Nom']);
+        $prenom = trim($_POST['Prenom']);
+        $statut = $_POST['Statut'];
+        $commentaire = trim($_POST['Commentaire']);
+
+        // Vérifier que les champs obligatoires sont remplis et que le statut est valide
+        if (empty($nom) || empty($prenom) || !in_array($statut, ['Actif', 'Blessé', 'Suspendu', 'Absent'])) {
+            die('Erreur : Champs invalides ou incomplets.');
+        }
+
+        // Mise à jour dans la base de données
+        $stmt = $linkpdo->prepare('UPDATE Joueur SET Nom = ?, Prenom = ?, Statut = ? WHERE Numero_licence = ?');
+        $stmt->execute([$nom, $prenom, $statut, $id]);
+
+        // Redirection vers la page des joueurs après mise à jour
+        header('Location: PageJoueurs.php');
+        exit; // S'assurer que le script s'arrête après la redirection
+    }
+} else {
+    die('ID non fourni.');
 }
 ?>
 
@@ -43,35 +57,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../css/FicheJoueurs.css" rel="stylesheet">
     <title>Fiche joueur</title>
 </head>
 <body>
 
-<h1>Fiche de <?= htmlspecialchars($joueur['prenom']) . ' ' . htmlspecialchars($joueur['nom']); ?></h1>
+<h1>Fiche de <?= htmlspecialchars($joueur['Prenom']) . ' ' . htmlspecialchars($joueur['Nom']); ?></h1>
+
+<!-- Affichage de la photo du joueur -->
+<div class="photo-container">
+    <img src="<?= htmlspecialchars($joueur['Photo'] ?? 'placeholder.png'); ?>" alt="Photo du joueur" class="photo">
+</div>
 
 <form method="POST">
-    <label>Nom : <input type="text" name="nom" value="<?= htmlspecialchars($joueur['nom']); ?>"></label><br>
-    <label>Prénom : <input type="text" name="prenom" value="<?= htmlspecialchars($joueur['prenom']); ?>"></label><br>
+    <label>Nom : <input type="text" name="Nom" value="<?= htmlspecialchars($joueur['Nom']); ?>"></label><br>
+    <label>Prénom : <input type="text" name="Prenom" value="<?= htmlspecialchars($joueur['Prenom']); ?>"></label><br>
     <label>Statut :
-        <select name="statut">
-            <option value="Actif" <?= $joueur['statut'] === 'Actif' ? 'selected' : ''; ?>>Actif</option>
-            <option value="Blessé" <?= $joueur['statut'] === 'Blessé' ? 'selected' : ''; ?>>Blessé</option>
-            <option value="Suspendu" <?= $joueur['statut'] === 'Suspendu' ? 'selected' : ''; ?>>Suspendu</option>
-            <option value="Absent" <?= $joueur['statut'] === 'Absent' ? 'selected' : ''; ?>>Absent</option>
+        <select name="Statut">
+            <option value="Actif" <?= $joueur['Statut'] === 'Actif' ? 'selected' : ''; ?>>Actif</option>
+            <option value="Blessé" <?= $joueur['Statut'] === 'Blessé' ? 'selected' : ''; ?>>Blessé</option>
+            <option value="Suspendu" <?= $joueur['Statut'] === 'Suspendu' ? 'selected' : ''; ?>>Suspendu</option>
+            <option value="Absent" <?= $joueur['Statut'] === 'Absent' ? 'selected' : ''; ?>>Absent</option>
         </select>
     </label><br>
-    <label>Commentaire : <textarea name="commentaire"><?= htmlspecialchars($joueur['commentaire']); ?></textarea></label><br>
-    <button type="submit">Enregistrer</button>
+    <label>Commentaire : <textarea name="Commentaire"><?= htmlspecialchars($joueur['Commentaire']); ?></textarea></label><br>
+    <button type="save">Enregistrer</button>
 </form>
 
-<!-- Formulaire pour supprimer le joueur -->
-<form method="POST" action="supprimer_joueur.php">
-    <input type="hidden" name="id" value="<?= $id; ?>">
-    <button type="submit">Supprimer le joueur</button>
+<!-- Formulaire pour supprimer le joueur directement -->
+<form method="POST">
+    <input type="hidden" name="supprimer" value="1">
+    <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce joueur ?');">Supprimer le joueur</button>
 </form>
 
 <!-- Lien pour retourner à la liste des joueurs -->
-<a href="index.php">Retour</a>
+<a href="PageJoueurs.php">Retour</a>
 
 </body>
 </html>
