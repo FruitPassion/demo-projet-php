@@ -57,13 +57,13 @@ if (isset($_GET['id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../css/FicheJoueurs.css" rel="stylesheet">
+    <link href="../css/FicheJoueur.css" rel="stylesheet">
     <title>Fiche joueur</title>
 </head>
 <body>
 
 <!-- Lien pour retourner à la liste des joueurs -->
-<button class="return" href="PageJoueurs.php">Retour</button>
+<a class="return" href="PageJoueurs.php">Retour</a>
 
 <h1>Fiche de <?= htmlspecialchars($joueur['Prenom']) . ' ' . htmlspecialchars($joueur['Nom']); ?></h1>
 

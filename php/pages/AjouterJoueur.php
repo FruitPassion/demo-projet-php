@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 
 <!-- Lien pour revenir à la page principale -->
-<button class="rtab" href="PageJoueurs.php">Retour au tableau</button>
+<a class="rtab" href="PageJoueurs.php">Retour au tableau</a>
 
 <h1>Ajouter un nouveau joueur</h1>
 

@@ -10,14 +10,14 @@ $joueurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../css/GestionJoueurs.css" rel="stylesheet">
+    <link href="../css/Joueurs.css" rel="stylesheet">
     <title>Gestion des Joueurs</title>
 </head>
 <body>
 
 <header>Mes joueurs</header>
 
-<a href="AjouterJoueurs.php" class="btn btn-ajouter">+ Ajouter un joueur</a>
+<a href="AjouterJoueur.php" class="btn btn-ajouter">+ Ajouter un joueur</a>
 
 <table>
     <thead>
@@ -46,9 +46,7 @@ $joueurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </tbody>
 </table>
 
-<!-- Lien pour revenir à la page principale -->
-<a href="PageAccueil.php" class="btn btn-return">Retour à l'accueil</a>
-<a href="../pages/PageAccueil.php">Retour à l'accueil</a>
+<a class="return" href="PageAccueil.php">Retour à l'accueil</a>
 
 </body>
 </html>

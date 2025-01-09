@@ -72,15 +72,18 @@ a.btn:hover {
     background-color: goldenrod;
 }
 
-.btn-return {
-    background-color: red;
-    color: white;
+.return {
     padding: 10px 20px;
+    background-color: burlywood;
+    color: white;
+    border: none;
+    cursor: pointer;
     border-radius: 5px;
+    font-size: 15px;
     margin-top: 20px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.2s ease;
 }
 
-.btn-return:hover {
-    background-color: darkred;
+.return:hover {
+    background-color: rgb(233, 194, 144);
 }
