@@ -1,7 +1,7 @@
 <?php
 require('../bd/ConnexionBD.php');
 
-$stmt = $linkpdo->query('SELECT Date_Match, Lieu_Rencontre, Nom_Equipe_Adverse, Resultat_Match FROM Match_');
+$stmt = $linkpdo->query('SELECT Date_Match, Heure, Lieu_Rencontre, Nom_Equipe_Adverse, Resultat_Equipe, Resultat_Equipe_Adverse FROM Match_');
 $matchs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
@@ -31,16 +31,15 @@ $matchs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </thead>
     <tbody>
         <?php foreach ($matchs as $match): 
-        $datetime = new DateTime($match['Date_Match']);
-        $Date = $datetime->format('d/m/Y'); 
-        $Heure = $datetime->format('H:i');
+        $Date_Match = $date->format('d/m/Y'); 
+        $Heure = $time->format('H:i');
         ?>
         <tr>
-            <td><?= htmlspecialchars($joueur['Date'] ?? 'Inconnu'); ?></td>
-            <td><?= htmlspecialchars($joueur['heure'] ?? 'Inconnu'); ?></td>
+            <td><?= htmlspecialchars($joueur['Date_Match'] ?? 'Inconnu'); ?></td>
+            <td><?= htmlspecialchars($joueur['Heure'] ?? 'Inconnu'); ?></td>
             <td><?= htmlspecialchars($joueur['Lieu_Rencontre'] ?? 'Inconnu'); ?></td>
             <td><?= htmlspecialchars($joueur['Nom_Equipe_Adverse'] ?? 'Inconnu'); ?></td>
-            <td><?= htmlspecialchars($joueur['Resultat_Match'] ?? 'Non défini'); ?></td>
+            <td><?= htmlspecialchars($joueur['Nom_Equipe_Adverse'] ?? 'Inconnu'); ?></td>
             <td>
                 <a href="FicheMatch.php?id=<?= $match['Id_Match']; ?>" class="btn">Voir</a>
             </td>
