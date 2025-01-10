@@ -21,9 +21,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         move_uploaded_file($_FILES['photo']['tmp_name'], $photo);
     }
 
-    // Insertion dans la base de données
+    // Insertion dans la table Joueur
     $stmt = $linkpdo->prepare('INSERT INTO Joueur (nom, prenom, numero_licence, date_naissance, poids, taille, statut, photo) 
-                           VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
+                               VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
     $stmt->execute([$nom, $prenom, $numero_licence, $date_naissance, $poids, $taille, $statut, $photo]);
 
     // Redirection vers la page principale après l'ajout
@@ -31,6 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -42,10 +43,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 
-<!-- Lien pour revenir à la page principale -->
-<a class="rtab" href="PageJoueurs.php">Retour au tableau</a>
+
 
 <h1>Ajouter un nouveau joueur</h1>
+
+<!-- Lien pour revenir à la page principale -->
+<a class="rtab" href="PageJoueurs.php">Retour au tableau</a>
 
 <form method="POST" enctype="multipart/form-data">
     <label for="nom">Nom :</label>

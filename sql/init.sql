@@ -27,6 +27,8 @@ CREATE TABLE IF NOT EXISTS Commentaire(
    Id_Commentaire INT AUTO_INCREMENT,
    Numero_licence INT NOT NULL,
    PRIMARY KEY(Id_Commentaire),
+   Texte VARCHAR(300) ,
+   Date_commentaire DATETIME,
    FOREIGN KEY(Numero_licence) REFERENCES Joueur(Numero_licence)
 );
 

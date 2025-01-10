@@ -87,3 +87,50 @@ a.btn:hover {
 .return:hover {
     background-color: rgb(233, 194, 144);
 }
+
+.menu-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.menu-button {
+    background-color: darkgoldenrod;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+.menu-content {
+    display: none;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    background-color: antiquewhite;
+    border: 1px solid darkgoldenrod;
+    border-radius: 5px;
+    width: 150px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+.menu-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    border-bottom: 1px solid darkgoldenrod;
+}
+
+.menu-content a:hover {
+    background-color: burlywood;
+}
+
+.menu-button:focus + .menu-content,
+.menu-content:hover {
+    display: block;
+}
+

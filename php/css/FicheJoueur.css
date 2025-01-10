@@ -13,6 +13,46 @@ h1 {
     margin-top: 20px;
 }
 
+/* Section des commentaires */
+.commentaires {
+    width: 50%; /* Valeur réduite */
+    max-width: 610px; /* Limite la largeur maximale à 600px */
+    margin: 10px auto; /* Réduit l'espacement autour */
+    padding: 10px; /* Réduit l'espacement interne */
+    background-color: burlywood;
+    border-radius: 5px;
+    border: 2px solid darkgoldenrod;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+/* Liste des commentaires */
+.commentaires ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Chaque commentaire */
+.commentaire {
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: antiquewhite;
+    border-radius: 5px;
+    border: 1px solid darkgoldenrod;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.commentaire .date-commentaire {
+    font-size: 12px;
+    color: #6c6c6c;
+    margin-bottom: 5px;
+}
+
+.commentaire p {
+    font-size: 16px;
+    color: #333;
+    line-height: 1.5;
+}
+
 /* Formulaire */
 form {
     width: 40%;
@@ -45,6 +85,7 @@ form textarea {
     height: 100px;
 }
 
+
 /* Boutons */
 .enregistrer {
     padding: 10px 10px;
@@ -64,14 +105,14 @@ form textarea {
 
 /* Lien de retour */
 .return {
-    padding: 10px;
+    padding: 10px 10px;
     background-color: burlywood;
     color: white;
     border: none;
     cursor: pointer;
     border-radius: 5px;
     font-size: 15px;
-    margin-top: 20px;
+    margin-top: 0%;
     transition: background-color 0.2s ease;
     margin-left: 5%;
 }
@@ -131,3 +172,59 @@ form button[type="save"]:hover {
     opacity: 0.8;
 }
 
+.menu-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.menu-button {
+    background-color: darkgoldenrod;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+.menu-content {
+    display: none;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    background-color: antiquewhite;
+    border: 1px solid darkgoldenrod;
+    border-radius: 5px;
+    width: 150px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+.menu-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    border-bottom: 1px solid darkgoldenrod;
+}
+
+.menu-content a:hover {
+    background-color: burlywood;
+}
+
+.menu-button:focus + .menu-content,
+.menu-content:hover {
+    display: block;
+}
+
+/* Section des commentaires */
+.commentaires {
+    width: 60%;
+    margin: 20px auto;
+    padding: 15px;
+    background-color: burlywood;
+    border-radius: 5px;
+    border: 2px solid darkgoldenrod;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}

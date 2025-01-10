@@ -73,9 +73,9 @@ form button[type="submit"]:hover {
     cursor: pointer;
     border-radius: 5px;
     font-size: 15px;
-    margin-top: 20px;
+    margin-top: 0;
     transition: background-color 0.2s ease;
-    margin-left: 5%;
+    margin-left: 3%;
 }
 
 .rtab:hover {
