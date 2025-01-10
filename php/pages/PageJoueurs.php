@@ -17,6 +17,17 @@ $joueurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <header>Mes joueurs</header>
 
+    <!-- Bouton du menu -->
+    <div class="menu-container">
+        <button class="menu-button">☰</button>
+        <div class="menu-content">
+            <a href="PageJoueurs.php">Mes Joueurs</a>
+            <a href="PageMatch.php">Mes Matchs</a>
+            <a href="PageStatistiques.php">Statistiques</a>
+            <a href="PageAccueil.php">Accueil</a>
+        </div>
+    </div>
+
 <a href="AjouterJoueur.php" class="btn btn-ajouter">+ Ajouter un joueur</a>
 
 <table>

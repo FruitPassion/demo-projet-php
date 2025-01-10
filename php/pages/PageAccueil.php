@@ -17,6 +17,18 @@ if (isset($_POST['deco'])) {
 </head>
 <body>
     <header>LigueDorée</header>
+
+    <!-- Bouton du menu -->
+    <div class="menu-container">
+        <button class="menu-button">☰</button>
+        <div class="menu-content">
+            <a href="PageJoueurs.php">Mes Joueurs</a>
+            <a href="PageMatch.php">Mes Matchs</a>
+            <a href="PageStatistiques.php">Statistiques</a>
+            <a href="PageAccueil.php">Accueil</a>
+        </div>
+    </div>
+    
     <form method="post" action="">
         <button type="submit" name="deco" class="deconnection"> Se déconnecter </button> 
     </form>
