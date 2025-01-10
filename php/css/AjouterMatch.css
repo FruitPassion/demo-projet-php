@@ -1,0 +1,109 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: antiquewhite;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    color: darkgoldenrod;
+    margin-top: 20px;
+}
+
+/* Formulaire */
+form {
+    width: 50%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: burlywood;
+    border-radius: 5px;
+    border: 2px solid darkgoldenrod;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+
+form label {
+    display: block;
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+form input, form select {
+    width: 95%;
+    padding: 10px;
+    font-size: 16px;
+    margin-top: 5px;
+    border: 1px solid darkgoldenrod;
+    border-radius: 5px;
+}
+
+form input[type="file"] {
+    padding: 5px;
+}
+
+form select {
+    width: 98%;
+}
+
+form button[type="submit"] {
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 15px;
+    margin-top: 20px;
+    transition: background-color 0.2s ease;
+}
+
+form button[type="submit"]:hover {
+    background-color: #218838;
+}
+
+/* Lien de retour */
+.rtab {
+    padding: 10px;
+    background-color: burlywood;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 15px;
+    margin-top: 20px;
+    transition: background-color 0.2s ease;
+    margin-left: 2%;
+}
+
+.rtab:hover {
+    background-color: rgb(221, 171, 106);
+}
+
+/* Style pour les champs obligatoires */
+form input[required], form select[required] {
+    background-color: whitesmoke;
+}
+
+/* Style pour l'affichage de la photo */
+.photo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    border: 3px solid darkgoldenrod;
+}
+
+.photo:hover {
+    opacity: 0.5;
+}
