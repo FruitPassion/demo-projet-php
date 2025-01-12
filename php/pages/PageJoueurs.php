@@ -17,7 +17,6 @@ $joueurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <header>Mes joueurs</header>
 
-    <!-- Bouton du menu -->
     <div class="menu-container">
         <button class="menu-button">☰</button>
         <div class="menu-content">
@@ -37,7 +36,7 @@ $joueurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <th>Nom</th>
             <th>Prénom</th>
             <th>Statut</th>
-            <th>Actions</th>
+            <th>Fiche</th>
         </tr>
     </thead>
     <tbody>

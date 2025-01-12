@@ -16,8 +16,8 @@ CREATE TABLE IF NOT EXISTS Joueur(
 
 CREATE TABLE IF NOT EXISTS Match_(
    Id_Match INT AUTO_INCREMENT,
-   Date_Match DATETIME,
-   Heure DATETIME,
+   Date_Match DATE,
+   Heure TIME,
    Nom_Equipe_Adverse VARCHAR(30) ,
    Lieu_Rencontre ENUM('Domicile', 'Extérieur') DEFAULT 'Domicile',
    Resultat_Equipe INT,

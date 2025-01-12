@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $linkpdo->prepare('INSERT INTO Match_ (Date_Match, Heure, Lieu_Rencontre, Nom_Equipe_Adverse, Resultat_Equipe, Resultat_Equipe_Adverse) 
                                 VALUES (?, ?, ?, ?, ?, ?)');
 
-            $stmt->execute([$Date_Match, $Heure, $Lieu_rencontre, $Nom_Equipe_Adverse, $Resultat_Equipe, $Resultat_Equipe_Adverse ]);
+            $stmt->execute([$Date, $Heure, $Lieu_rencontre, $Nom_Equipe_Adverse, $Resultat_Equipe, $Resultat_Equipe_Adverse ]);
 
             // Redirection vers la page principale après l'ajout
             header('Location: PageMatch.php');
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../css/AjouterMatch.css" rel="stylesheet">
-    <title>Ajouter un joueur</title>
+    <title>Ajouter un match</title>
 </head>
 <body>
 
@@ -56,8 +56,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <label for="Lieu_rencontre">Lieu de rencontre :</label>
     <select id="Lieu_rencontre" name="Lieu_rencontre">
-        <option value="Actif">domicile</option>
-        <option value="Blessé">extérieur</option>
+        <option value="Domicile">domicile</option>
+        <option value="Extérieur">extérieur</option>
     </select>
 
     <label for="Nom_Equipe_Adverse">Nom de l'équipe adverse :</label>
