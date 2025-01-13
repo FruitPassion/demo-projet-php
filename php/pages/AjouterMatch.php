@@ -2,6 +2,9 @@
 // Inclure la connexion à la base de données depuis le dossier "BD"
 require('../bd/ConnexionBD.php');
 
+$stmt = $linkpdo->query("SELECT Numero_licence, Nom, Prenom, Statut, photo FROM Joueur WHERE Statut ='Actif'");
+$joueurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 // Gestion du formulaire d'ajout de joueur
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -68,7 +71,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <label for="Resultat_Equipe_Adverse">Résultat adversaire:</label>
     <input type="number" id="Resultat_Equipe_Adverse" name="Resultat_Equipe_Adverse" step="1" required>
 
+    <label> Joueurs disponibles : </label>
+    <table>
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($joueurs as $joueur): ?>
+        <tr>
+            <td><?= htmlspecialchars($joueur['Nom'] ?? 'Inconnu'); ?></td>
+            <td><?= htmlspecialchars($joueur['Prenom'] ?? 'Inconnu'); ?></td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+    </table>
+
     <button type="submit">Ajouter le match</button>
+
 </form>
 </body>
 </html>

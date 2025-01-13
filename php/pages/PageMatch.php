@@ -11,7 +11,7 @@ $matchs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../css/Match.css" rel="stylesheet">
-    <title>Gestion des Joueurs</title>
+    <title>Gestion des Matchs</title>
 </head>
 <body>
 
