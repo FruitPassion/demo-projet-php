@@ -32,46 +32,57 @@ $joueurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <div class="grid">
         <div class="un">
+            <h3> Nombre et pourcentage des matchs </h3>
             <table>
             <thead>
                 <tr>
-                    <th>Nom</th>
-                    <th>Prénom</th>
+                    <th>Gagnés</th>
+                    <th>Perdus</th>
+                    <th>Nuls</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($joueurs as $joueur): ?>
                 <tr>
                     <td><?= htmlspecialchars($joueur['Nom'] ?? 'Inconnu'); ?></td>
-                    <td><?= htmlspecialchars($joueur['Prenom'] ?? 'Inconnu'); ?></td>
+                    <td><?= htmlspecialchars($joueur['Nom'] ?? 'Inconnu'); ?></td>
+                    <td><?= htmlspecialchars($joueur['Nom'] ?? 'Inconnu'); ?></td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>
             </table>
         </div>
         <div class="deux">
-        <table>
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Heure</th>
-                <th>Lieu</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($matchs as $match): 
-            ?>
-            <tr>
-                <td><?= htmlspecialchars(date('d/m/Y', strtotime($match['Date_Match'])) ?? 'Inconnu'); ?></td>
-                <td><?= htmlspecialchars(date('H:i', strtotime($match['Heure'])) ?? 'Inconnu'); ?></td>
-                <td><?= htmlspecialchars($match['Lieu_Rencontre'] ?? 'Inconnu'); ?></td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-        </table>
-        </div>
-        <div class="trois">
-            test
+            <h3> Données par joueur </h3>
+            <table>
+            <thead>
+                <tr>
+                    <th>Joueur</th>
+                    <th>Status</th>
+                    <th>Poste préféré</th>
+                    <th>Nombre Titulaire</th>
+                    <th>Remplaçant</th>
+                    <th>Sélection consécutives</th>
+                    <th>Moyenne évaluations</th>
+                    <th>Matchs gagnés</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($joueurs as $joueur): 
+                ?>
+                <tr>
+                <td><?= htmlspecialchars($joueur['Nom'] ?? 'Inconnu'); ?></td>
+                <td><?= htmlspecialchars($joueur['Statut'] ?? 'Non défini'); ?></td>
+                <td><?= htmlspecialchars($joueur['Nom'] ?? 'Inconnu'); ?></td>
+                <td><?= htmlspecialchars($joueur['Nom'] ?? 'Inconnu'); ?></td>
+                <td><?= htmlspecialchars($joueur['Nom'] ?? 'Inconnu'); ?></td>
+                <td><?= htmlspecialchars($joueur['Nom'] ?? 'Inconnu'); ?></td>
+                <td><?= htmlspecialchars($joueur['Nom'] ?? 'Inconnu'); ?></td>
+                <td><?= htmlspecialchars($joueur['Nom'] ?? 'Inconnu'); ?></td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+            </table>
         </div>
     </div>
 
