@@ -1,7 +1,8 @@
 <?php
 require('../bd/ConnexionBD.php');
 
-$stmt = $linkpdo->query('SELECT Date_Match, Heure, Lieu_Rencontre, Nom_Equipe_Adverse, Resultat_Equipe, Resultat_Equipe_Adverse, Id_Match FROM Match_');
+// Modifier la requête SQL pour trier les matchs par date en ordre décroissant
+$stmt = $linkpdo->query('SELECT Date_Match, Heure, Lieu_Rencontre, Nom_Equipe_Adverse, Resultat_Equipe, Resultat_Equipe_Adverse, Id_Match FROM Match_ ORDER BY Date_Match DESC');
 $matchs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
@@ -17,15 +18,15 @@ $matchs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <header>Mes Matchs</header>
 
-    <div class="menu-container">
-        <button class="menu-button">☰</button>
-        <div class="menu-content">
-            <a href="PageJoueurs.php">Mes Joueurs</a>
-            <a href="PageMatch.php">Mes Matchs</a>
-            <a href="PageStatistiques.php">Statistiques</a>
-            <a href="PageAccueil.php">Accueil</a>
-        </div>
+<div class="menu-container">
+    <button class="menu-button">☰</button>
+    <div class="menu-content">
+        <a href="PageJoueurs.php">Mes Joueurs</a>
+        <a href="PageMatch.php">Mes Matchs</a>
+        <a href="PageStatistiques.php">Statistiques</a>
+        <a href="PageAccueil.php">Accueil</a>
     </div>
+</div>
 
 <a href="AjouterMatch.php" class="btn btn-ajouter">+ Ajouter un match</a>
 
@@ -42,8 +43,7 @@ $matchs = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($matchs as $match): 
-        ?>
+        <?php foreach ($matchs as $match): ?>
         <tr>
             <td><?= htmlspecialchars(date('d/m/Y', strtotime($match['Date_Match'])) ?? 'Inconnu'); ?></td>
             <td><?= htmlspecialchars(date('H:i', strtotime($match['Heure'])) ?? 'Inconnu'); ?></td>

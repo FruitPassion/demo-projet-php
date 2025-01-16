@@ -13,44 +13,44 @@ h1 {
     margin-top: 20px;
 }
 
-/* Section des commentaires */
-.commentaires {
-    width: 50%; /* Valeur réduite */
-    max-width: 610px; /* Limite la largeur maximale à 600px */
-    margin: 10px auto; /* Réduit l'espacement autour */
-    padding: 10px; /* Réduit l'espacement interne */
-    background-color: burlywood;
-    border-radius: 5px;
-    border: 2px solid darkgoldenrod;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-}
-/* Liste des commentaires */
-.commentaires ul {
+/* Section des joueurs titulaires et remplaçants */
+ul {
     list-style-type: none;
-    padding: 0;
-    margin: 0;
+    padding: 10px;
+    margin: 15px 0;
+    background-color: bisque;
+    border-radius: 10px;
+    border: 2px solid darkgoldenrod;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Chaque commentaire */
-.commentaire {
-    margin-bottom: 15px;
-    padding: 10px;
-    background-color: antiquewhite;
+ul li {
+    padding: 8px;
+    margin-bottom: 5px;
+    background-color: #fff8dc; /* Un ton clair pour les éléments */
     border-radius: 5px;
     border: 1px solid darkgoldenrod;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
-.commentaire .date-commentaire {
-    font-size: 12px;
-    color: #6c6c6c;
-    margin-bottom: 5px;
+ul li:hover {
+    background-color: #f4e1a1; /* Change le fond au survol */
 }
 
-.commentaire p {
-    font-size: 16px;
-    color: #333;
-    line-height: 1.5;
+/* Bouton "Enregistrer" */
+.enregistrer {
+    padding: 10px 10px;
+    background-color: #28a745; /* Vert */
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.2s ease;
+    font-size: 15px;
+    margin-top: 15px;
+}
+
+.enregistrer:hover {
+    background-color: #218838; /* Couleur plus foncée au survol */
 }
 
 /* Formulaire */
@@ -80,29 +80,6 @@ form input, form select, form textarea {
     border-radius: 5px;
 }
 
-form textarea {
-    resize: vertical;
-    height: 100px;
-}
-
-
-/* Boutons */
-.enregistrer {
-    padding: 10px 10px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.2s ease;
-    font-size: 15px;
-    margin-top: 15px;
-}
-
-.enregistrer:hover {
-    background-color: #218838;
-}
-
 /* Lien de retour */
 .return {
     padding: 10px 10px;
@@ -127,29 +104,45 @@ form input[type="hidden"] {
 }
 
 form button[type="submit"] {
-    background-color: red;
-    margin-top: 8px;
-}
-
-form button[type="submit"]:hover {
-    background-color: darkred;
-}
-
-/* Style pour enregistrer*/
-form button[type="save"] {
-    padding: 10px;
-    background-color: #28a745;
+    padding: 10px 10px;
+    background-color: #dc3545; /* Rouge */
     color: white;
     border: none;
     cursor: pointer;
     border-radius: 5px;
-    font-size: 15px;
-    margin-top: 20px;
     transition: background-color 0.2s ease;
+    font-size: 15px;
+    margin-top: 15px;
+}
+
+form button[type="submit"]:hover {
+    background-color: #c82333; /* Rouge foncé */
+}
+
+/* Style pour le formulaire de suppression */
+
+form button[type="save"] {
+    padding: 10px 10px;
+    background-color: green;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.2s ease;
+    font-size: 15px;
+    margin-top: 15px;
 }
 
 form button[type="save"]:hover {
-    background-color: #218838;
+    background-color: green;
+}
+
+/* Champs grisés (readonly ou disabled) */
+input[readonly], input[disabled], select[disabled], textarea[readonly] {
+    background-color: #f2f2f2; /* Fond gris clair */
+    color: #b0b0b0; /* Texte gris */
+    cursor: not-allowed; /* Curseur interdit */
+    border: 1px solid #ccc; /* Bordure gris clair */
 }
 
 .photo-container {
@@ -216,15 +209,4 @@ form button[type="save"]:hover {
 .menu-button:focus + .menu-content,
 .menu-content:hover {
     display: block;
-}
-
-/* Section des commentaires */
-.commentaires {
-    width: 60%;
-    margin: 20px auto;
-    padding: 15px;
-    background-color: burlywood;
-    border-radius: 5px;
-    border: 2px solid darkgoldenrod;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }

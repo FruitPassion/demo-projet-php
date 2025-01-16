@@ -15,31 +15,39 @@ if (isset($_GET['id'])) {
         die('Match introuvable.');
     }
 
-    // Récupérer les joueurs participant au match
-    $stmt = $linkpdo->prepare('SELECT p.Numero_Licence, j.Nom, j.Prenom, p.Titulaire 
-                               FROM Participer p 
-                               INNER JOIN Joueur j ON p.Numero_Licence = j.Numero_Licence
-                               WHERE p.Id_Match = ?');
+    // Vérification si la date du match est dans le passé
+    $dateMatch = new DateTime($match['Date_Match']);
+    $dateActuelle = new DateTime();
+    $isDateDansLePasse = $dateMatch < $dateActuelle;
+
+    // Récupérer les joueurs réellement associés au match
+    $stmt = $linkpdo->prepare('
+        SELECT p.Numero_Licence, j.Nom, j.Prenom, p.Titulaire, p.Poste
+        FROM Participer p
+        INNER JOIN Joueur j ON p.Numero_Licence = j.Numero_Licence
+        WHERE p.Id_Match = ? AND p.Poste IS NOT NULL
+    ');
     $stmt->execute([$id]);
     $joueurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+    // Séparer les joueurs titulaires et remplaçants
+    $titulaires = [];
+    $remplacants = [];
+
+    foreach ($joueurs as $joueur) {
+        // Vérification du statut de titulaire ou remplaçant
+        if ($joueur['Titulaire'] == 1) {
+            $titulaires[] = $joueur;
+        } else {
+            $remplacants[] = $joueur;
+        }
+    }
+
     // Gestion du formulaire
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // Cas de suppression
-        if (isset($_POST['supprimer']) && $_POST['supprimer'] == '1') {
-            // Supprimer le match
-            $stmt = $linkpdo->prepare('DELETE FROM Match_ WHERE Id_Match = ?');
-            $stmt->execute([$id]);
+        // Vérification des champs de formulaire
+        $isValid = true;
 
-            // Supprimer les relations avec les joueurs
-            $stmt = $linkpdo->prepare('DELETE FROM Participer WHERE Id_Match = ?');
-            $stmt->execute([$id]);
-
-            header('Location: PageMatch.php');
-            exit;
-        }
-
-        // Cas de mise à jour
         if (isset($_POST['Date_Match'], $_POST['Heure'], $_POST['Lieu_rencontre'], 
                   $_POST['Nom_Equipe_Adverse'], $_POST['Resultat_Equipe'], $_POST['Resultat_Equipe_Adverse'])) {
             
@@ -50,12 +58,12 @@ if (isset($_GET['id'])) {
             $Resultat_Equipe = $_POST['Resultat_Equipe'];
             $Resultat_Equipe_Adverse = $_POST['Resultat_Equipe_Adverse'];
 
-            // Liste des joueurs sélectionnés
-            $joueurs_titulaires = $_POST['joueurs_titulaires'] ?? [];
-            $joueurs_remplacants = $_POST['joueurs_remplacants'] ?? [];
+            // Vérification des autres champs
+            if (empty($Date) || empty($Heure) || !in_array($Lieu_rencontre, ['Domicile', 'Extérieur']) || empty($Nom_Equipe_Adverse) || !is_numeric($Resultat_Equipe) || !is_numeric($Resultat_Equipe_Adverse)) {
+                $isValid = false;
+            }
 
-            // Vérifier les données
-            if (empty($Date) || empty($Heure) || !in_array($Lieu_rencontre, ['Domicile', 'Extérieur'])) {
+            if (!$isValid) {
                 die('Erreur : Champs invalides ou incomplets.');
             }
 
@@ -66,21 +74,6 @@ if (isset($_GET['id'])) {
                                            Resultat_Equipe_Adverse = ? 
                                        WHERE Id_Match = ?');
             $stmt->execute([$Date, $Heure, $Lieu_rencontre, $Nom_Equipe_Adverse, $Resultat_Equipe, $Resultat_Equipe_Adverse, $id]);
-
-            // Mettre à jour les joueurs
-            $stmt = $linkpdo->prepare('UPDATE Participer 
-                                       SET Titulaire = ? 
-                                       WHERE Id_Match = ? AND Numero_Licence = ?');
-
-            // Passer tous les joueurs en "remplaçant" par défaut
-            foreach ($joueurs as $joueur) {
-                $stmt->execute([0, $id, $joueur['Numero_Licence']]);
-            }
-
-            // Mettre à jour les joueurs titulaires
-            foreach ($joueurs_titulaires as $titulaire) {
-                $stmt->execute([1, $id, $titulaire]);
-            }
 
             header('Location: PageMatch.php');
             exit;
@@ -99,6 +92,13 @@ if (isset($_GET['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../css/FicheMatch.css" rel="stylesheet">
+    <style>
+        .grise {
+            background-color: #f2f2f2;
+            color: #b0b0b0;
+            cursor: not-allowed;
+        }
+    </style>
     <title>Fiche match</title>
 </head>
 <body>
@@ -108,19 +108,31 @@ if (isset($_GET['id'])) {
 
 <form method="POST">
     <label for="Date_Match">Date :</label>
-    <input type="date" id="Date_Match" name="Date_Match" value="<?= htmlspecialchars($match['Date_Match']); ?>" required>
+    <input type="date" id="Date_Match" name="Date_Match" value="<?= htmlspecialchars($match['Date_Match']); ?>" class="<?= $isDateDansLePasse ? 'grise' : ''; ?>" <?= $isDateDansLePasse ? 'readonly' : ''; ?> required>
+    <?php if ($isDateDansLePasse): ?>
+        <input type="hidden" name="Date_Match" value="<?= htmlspecialchars($match['Date_Match']); ?>">
+    <?php endif; ?>
 
     <label for="Heure">Heure :</label>
-    <input type="time" id="Heure" name="Heure" value="<?= htmlspecialchars($match['Heure']); ?>" required>
+    <input type="time" id="Heure" name="Heure" value="<?= htmlspecialchars($match['Heure']); ?>" class="<?= $isDateDansLePasse ? 'grise' : ''; ?>" <?= $isDateDansLePasse ? 'readonly' : ''; ?> required>
+    <?php if ($isDateDansLePasse): ?>
+        <input type="hidden" name="Heure" value="<?= htmlspecialchars($match['Heure']); ?>">
+    <?php endif; ?>
 
     <label for="Lieu_rencontre">Lieu de rencontre :</label>
-    <select id="Lieu_rencontre" name="Lieu_rencontre">
+    <select id="Lieu_rencontre" name="Lieu_rencontre" class="<?= $isDateDansLePasse ? 'grise' : ''; ?>" <?= $isDateDansLePasse ? 'disabled' : ''; ?>>
         <option value="Domicile" <?= $match['Lieu_Rencontre'] === 'Domicile' ? 'selected' : ''; ?>>Domicile</option>
         <option value="Extérieur" <?= $match['Lieu_Rencontre'] === 'Extérieur' ? 'selected' : ''; ?>>Extérieur</option>
     </select>
+    <?php if ($isDateDansLePasse): ?>
+        <input type="hidden" name="Lieu_rencontre" value="<?= htmlspecialchars($match['Lieu_Rencontre']); ?>">
+    <?php endif; ?>
 
     <label for="Nom_Equipe_Adverse">Nom de l'équipe adverse :</label>
-    <input type="text" id="Nom_Equipe_Adverse" name="Nom_Equipe_Adverse" value="<?= htmlspecialchars($match['Nom_Equipe_Adverse']); ?>" required>
+    <input type="text" id="Nom_Equipe_Adverse" name="Nom_Equipe_Adverse" value="<?= htmlspecialchars($match['Nom_Equipe_Adverse']); ?>" class="<?= $isDateDansLePasse ? 'grise' : ''; ?>" <?= $isDateDansLePasse ? 'readonly' : ''; ?> required>
+    <?php if ($isDateDansLePasse): ?>
+        <input type="hidden" name="Nom_Equipe_Adverse" value="<?= htmlspecialchars($match['Nom_Equipe_Adverse']); ?>">
+    <?php endif; ?>
 
     <label for="Resultat_Equipe">Résultat équipe :</label>
     <input type="number" id="Resultat_Equipe" name="Resultat_Equipe" value="<?= htmlspecialchars($match['Resultat_Equipe']); ?>" required>
@@ -129,24 +141,20 @@ if (isset($_GET['id'])) {
     <input type="number" id="Resultat_Equipe_Adverse" name="Resultat_Equipe_Adverse" value="<?= htmlspecialchars($match['Resultat_Equipe_Adverse']); ?>" required>
 
     <h2>Joueurs titulaires :</h2>
-    <select name="joueurs_titulaires[]" multiple>
-        <?php foreach ($joueurs as $joueur): ?>
-            <option value="<?= $joueur['Numero_Licence']; ?>" <?= $joueur['Titulaire'] ? 'selected' : ''; ?>>
-                <?= htmlspecialchars($joueur['Prenom'] . ' ' . $joueur['Nom']); ?>
-            </option>
+    <ul>
+        <?php foreach ($titulaires as $joueur): ?>
+            <li><?= htmlspecialchars($joueur['Prenom'] . ' ' . $joueur['Nom']) . ' - Poste : ' . htmlspecialchars($joueur['Poste']); ?></li>
         <?php endforeach; ?>
-    </select>
+    </ul>
 
     <h2>Joueurs remplaçants :</h2>
-    <select name="joueurs_remplacants[]" multiple>
-        <?php foreach ($joueurs as $joueur): ?>
-            <option value="<?= $joueur['Numero_Licence']; ?>" <?= !$joueur['Titulaire'] ? 'selected' : ''; ?>>
-                <?= htmlspecialchars($joueur['Prenom'] . ' ' . $joueur['Nom']); ?>
-            </option>
+    <ul>
+        <?php foreach ($remplacants as $joueur): ?>
+            <li><?= htmlspecialchars($joueur['Prenom'] . ' ' . $joueur['Nom']) . ' - Poste : ' . htmlspecialchars($joueur['Poste']); ?></li>
         <?php endforeach; ?>
-    </select>
+    </ul>
 
-    <button type="submit">Enregistrer</button>
+    <button type="save">Enregistrer</button>
 </form>
 
 <form method="POST">
