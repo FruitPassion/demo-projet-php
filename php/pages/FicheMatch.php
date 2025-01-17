@@ -147,18 +147,28 @@ if (isset($_GET['id'])) {
     <?php endif; ?>
 
     <h2>Joueurs titulaires :</h2>
-    <ul>
-        <?php foreach ($titulaires as $joueur): ?>
-            <li><?= htmlspecialchars($joueur['Prenom'] . ' ' . $joueur['Nom']) . ' - Poste : ' . htmlspecialchars($joueur['Poste']); ?></li>
-        <?php endforeach; ?>
-    </ul>
+<ul>
+    <?php foreach ($titulaires as $joueur): ?>
+        <li>
+            <a href="FicheEvaluation.php?id=<?= $joueur['Numero_Licence']; ?>" class="joueur-btn">
+                <?= htmlspecialchars($joueur['Prenom'] . ' ' . $joueur['Nom']) . ' - Poste : ' . htmlspecialchars($joueur['Poste']); ?>
+            </a>
+        </li>
 
-    <h2>Joueurs remplaçants :</h2>
-    <ul>
-        <?php foreach ($remplacants as $joueur): ?>
-            <li><?= htmlspecialchars($joueur['Prenom'] . ' ' . $joueur['Nom']) . ' - Poste : ' . htmlspecialchars($joueur['Poste']); ?></li>
-        <?php endforeach; ?>
-    </ul>
+    <?php endforeach; ?>
+</ul>
+
+<h2>Joueurs remplaçants :</h2>
+<ul>
+    <?php foreach ($remplacants as $joueur): ?>
+        <li>
+            <a href="FicheEvaluation.php?id=<?= $joueur['Numero_Licence']; ?>" class="joueur-btn">
+                <?= htmlspecialchars($joueur['Prenom'] . ' ' . $joueur['Nom']) . ' - Poste : ' . htmlspecialchars($joueur['Poste']); ?>
+            </a>
+        </li>
+
+    <?php endforeach; ?>
+</ul>
 
     <button type="save">Enregistrer</button>
 </form>

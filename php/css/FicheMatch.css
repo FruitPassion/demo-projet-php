@@ -216,3 +216,23 @@ input[readonly], input[disabled], select[disabled], textarea[readonly] {
     color: #b0b0b0;
     cursor: not-allowed;
 }
+
+.joueur-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px 0;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: darkgoldenrod;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.joueur-btn:hover {
+    background-color: burlywood;
+    text-decoration: none;
+}
