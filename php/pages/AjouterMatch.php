@@ -4,16 +4,13 @@ require('../bd/ConnexionBD.php');
 
 // Gestion du formulaire d'ajout de match
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['Date_Match'], $_POST['Heure'], $_POST['Lieu_rencontre'], $_POST['Nom_Equipe_Adverse'], 
-        $_POST['Resultat_Equipe'], $_POST['Resultat_Equipe_Adverse'])) {
+    if (isset($_POST['Date_Match'], $_POST['Heure'], $_POST['Lieu_rencontre'], $_POST['Nom_Equipe_Adverse'])) {
 
         // Récupération des informations du formulaire
         $Date = $_POST['Date_Match'];
         $Heure = $_POST['Heure'];
         $Lieu_rencontre = $_POST['Lieu_rencontre'];
         $Nom_Equipe_Adverse = $_POST['Nom_Equipe_Adverse'];
-        $Resultat_Equipe = $_POST['Resultat_Equipe'];
-        $Resultat_Equipe_Adverse = $_POST['Resultat_Equipe_Adverse'];
 
         // Vérifier si la date du match est dans le passé
         $currentDate = date('Y-m-d'); // Date actuelle au format YYYY-MM-DD
@@ -22,9 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             try {
                 // Insertion dans la table Match_
-                $stmt = $linkpdo->prepare('INSERT INTO Match_ (Date_Match, Heure, Lieu_Rencontre, Nom_Equipe_Adverse, Resultat_Equipe, Resultat_Equipe_Adverse) 
-                                           VALUES (?, ?, ?, ?, ?, ?)');
-                $stmt->execute([$Date, $Heure, $Lieu_rencontre, $Nom_Equipe_Adverse, $Resultat_Equipe, $Resultat_Equipe_Adverse]);
+                $stmt = $linkpdo->prepare('INSERT INTO Match_ (Date_Match, Heure, Lieu_Rencontre, Nom_Equipe_Adverse) 
+                                           VALUES (?, ?, ?, ?)');
+                $stmt->execute([$Date, $Heure, $Lieu_rencontre, $Nom_Equipe_Adverse]);
 
                 // Récupérer l'ID du match inséré
                 $idMatch = $linkpdo->lastInsertId();
@@ -72,12 +69,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <label for="Nom_Equipe_Adverse">Nom de l'équipe adverse :</label>
         <input type="text" id="Nom_Equipe_Adverse" name="Nom_Equipe_Adverse" required>
-
-        <label for="Resultat_Equipe">Résultat équipe :</label>
-        <input type="number" id="Resultat_Equipe" name="Resultat_Equipe" step="1" required>
-
-        <label for="Resultat_Equipe_Adverse">Résultat adversaire :</label>
-        <input type="number" id="Resultat_Equipe_Adverse" name="Resultat_Equipe_Adverse" step="1" required>
 
         <button type="submit">Ajouter les joueurs</button>
     </form>

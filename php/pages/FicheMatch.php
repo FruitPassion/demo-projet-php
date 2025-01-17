@@ -15,10 +15,16 @@ if (isset($_GET['id'])) {
         die('Match introuvable.');
     }
 
+    // Initialiser les résultats à 0 si non définis
+    $match['Resultat_Equipe'] = $match['Resultat_Equipe'] ?? 0;
+    $match['Resultat_Equipe_Adverse'] = $match['Resultat_Equipe_Adverse'] ?? 0;
+
     // Vérification si la date du match est dans le passé
     $dateMatch = new DateTime($match['Date_Match']);
     $dateActuelle = new DateTime();
     $isDateDansLePasse = $dateMatch < $dateActuelle;
+    $dateHeureFicheMatch = new DateTime($match['Date_Match'] . ' ' . $match['Heure']);
+    $formatDateHeure = $dateHeureFicheMatch->format('d-m-Y / H:i');
 
     // Récupérer les joueurs réellement associés au match
     $stmt = $linkpdo->prepare('
@@ -92,17 +98,11 @@ if (isset($_GET['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../css/FicheMatch.css" rel="stylesheet">
-    <style>
-        .grise {
-            background-color: #f2f2f2;
-            color: #b0b0b0;
-            cursor: not-allowed;
-        }
-    </style>
     <title>Fiche match</title>
 </head>
 <body>
-<h1>Fiche du match <?= htmlspecialchars($match['Date_Match']) . ' ' . htmlspecialchars($match['Heure']); ?></h1>
+<h1>Fiche du match <?= htmlspecialchars($formatDateHeure); ?></h1>
+
 
 <div><a class="return" href="PageMatch.php">Retour</a></div>
 
@@ -120,7 +120,7 @@ if (isset($_GET['id'])) {
     <?php endif; ?>
 
     <label for="Lieu_rencontre">Lieu de rencontre :</label>
-    <select id="Lieu_rencontre" name="Lieu_rencontre" class="<?= $isDateDansLePasse ? 'grise' : ''; ?>" <?= $isDateDansLePasse ? 'disabled' : ''; ?>>
+    <select id="Lieu_rencontre" name="Lieu_rencontre" class="<?= $isDateDansLePasse ? 'grise' : ''; ?>" <?= $isDateDansLePasse ? 'disabled' : ''; ?> required>
         <option value="Domicile" <?= $match['Lieu_Rencontre'] === 'Domicile' ? 'selected' : ''; ?>>Domicile</option>
         <option value="Extérieur" <?= $match['Lieu_Rencontre'] === 'Extérieur' ? 'selected' : ''; ?>>Extérieur</option>
     </select>
@@ -135,10 +135,16 @@ if (isset($_GET['id'])) {
     <?php endif; ?>
 
     <label for="Resultat_Equipe">Résultat équipe :</label>
-    <input type="number" id="Resultat_Equipe" name="Resultat_Equipe" value="<?= htmlspecialchars($match['Resultat_Equipe']); ?>" required>
+    <input type="number" id="Resultat_Equipe" name="Resultat_Equipe" value="<?= htmlspecialchars($match['Resultat_Equipe_Adverse'] ?? 0); ?>" class="<?= !$isDateDansLePasse ? 'grise' : ''; ?>" <?= !$isDateDansLePasse ? 'readonly' : ''; ?> required>
+    <?php if (!$isDateDansLePasse): ?>
+        <input type="hidden" name="Resultat_Equipe" value="<?= htmlspecialchars($match['Resultat_Equipe']); ?>">
+    <?php endif; ?>
 
     <label for="Resultat_Equipe_Adverse">Résultat adversaire :</label>
-    <input type="number" id="Resultat_Equipe_Adverse" name="Resultat_Equipe_Adverse" value="<?= htmlspecialchars($match['Resultat_Equipe_Adverse']); ?>" required>
+    <input type="number" id="Resultat_Equipe_Adverse" name="Resultat_Equipe_Adverse" value="<?= htmlspecialchars($match['Resultat_Equipe_Adverse'] ?? 0); ?>" class="<?= !$isDateDansLePasse ? 'grise' : ''; ?>" <?= !$isDateDansLePasse ? 'readonly' : ''; ?> required>
+    <?php if (!$isDateDansLePasse): ?>
+        <input type="hidden" name="Resultat_Equipe_Adverse" value="<?= htmlspecialchars($match['Resultat_Equipe_Adverse']); ?>">
+    <?php endif; ?>
 
     <h2>Joueurs titulaires :</h2>
     <ul>

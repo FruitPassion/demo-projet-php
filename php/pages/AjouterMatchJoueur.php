@@ -146,10 +146,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </select>
                         </td>
                         <td>
-                            <input type="checkbox" name="titulaire[<?= $joueur['Numero_licence']; ?>]" value="1">
+                            <input type="checkbox" class="checkbox bouton-titulaire" name="titulaire[<?= $joueur['Numero_licence']; ?>]" value="1">
                         </td>
                         <td>
-                            <input type="checkbox" name="selectionne[<?= $joueur['Numero_licence']; ?>]" value="1">
+                            <input type="checkbox" class="checkbox bouton-selectionne" name="selectionne[<?= $joueur['Numero_licence']; ?>]" value="1">
                         </td>
                     </tr>
                 <?php endforeach; ?>

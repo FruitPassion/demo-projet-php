@@ -53,11 +53,11 @@ th {
 }
 
 tr:nth-child(even) {
-    background-color: #fff8dc; /* Clair */
+    background-color: #fff8dc;
 }
 
 tr:hover {
-    background-color: #f4e1a1; /* Change le fond au survol */
+    background-color: #f4e1a1;
 }
 
 select, input[type="checkbox"] {
@@ -76,7 +76,7 @@ button {
 }
 
 button:hover {
-    background-color: #1e88e5; /* Bleu */
+    background-color: darkgoldenrod;
 }
 
 .error {
@@ -84,3 +84,37 @@ button:hover {
     text-align: center;
     margin-bottom: 20px;
 }
+
+/* Style pour les cases à cocher */
+.checkbox {
+    width: 25px; 
+    height: 25px; 
+    margin: 5px;
+    cursor: pointer;
+}
+
+/* Style spécifique pour les boutons */
+.bouton-titulaire {
+    background-color: brown;
+    border: 2px solid #8B4513; 
+    border-radius: 5px; 
+}
+
+.bouton-selectionne {
+    background-color: brown;
+    border: 2px solid #8B4513; 
+    border-radius: 5px;
+}
+
+/* Ajouter un effet de survol */
+.checkbox:hover {
+    box-shadow: 0 0 10px darkgoldenrod;
+    transform: scale(1.1); 
+}
+
+/* Style pour les cases cochées */
+.checkbox:checked {
+    background-color: #A0522D;
+    border-color: #A0522D;
+}
+

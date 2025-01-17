@@ -210,3 +210,9 @@ input[readonly], input[disabled], select[disabled], textarea[readonly] {
 .menu-content:hover {
     display: block;
 }
+
+.grise {
+    background-color: #f2f2f2;
+    color: #b0b0b0;
+    cursor: not-allowed;
+}
