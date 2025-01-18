@@ -61,7 +61,8 @@ form button[type="submit"] {
 }
 
 form button[type="submit"]:hover {
-    background-color: #218838;
+    background-color: #45a049;
+    transform: scale(1.05);
 }
 
 /* Lien de retour */
@@ -79,7 +80,8 @@ form button[type="submit"]:hover {
 }
 
 .rtab:hover {
-    background-color: rgb(221, 171, 106);
+    background-color: rgb(255, 211, 154);
+    transform: scale(1.05);
 }
 
 /* Style pour les champs obligatoires */

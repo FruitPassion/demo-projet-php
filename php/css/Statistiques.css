@@ -27,7 +27,8 @@ header {
 }
 
 .btn-ajouter:hover {
-    background-color: goldenrod; 
+    background-color: goldenrod;
+    transform: scale(1.05);
 }
 
 table {

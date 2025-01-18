@@ -3,7 +3,7 @@
 require('../bd/ConnexionBD.php');
 
 // Récupérer l'ID du match
-$idMatch = $_GET['idMatch'] ?? null;
+$idMatch = $_GET['Id_Match'] ?? null;
 if (!$idMatch) {
     die('ID du match manquant.');
 }
@@ -15,6 +15,10 @@ $joueurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 // Gestion du formulaire d'ajout des joueurs au match
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
+
+        $stmt = $linkpdo->prepare('DELETE FROM Participer WHERE Id_Match = ?');
+        $stmt->execute([$idMatch]);
+
         $postes = $_POST['poste'] ?? []; // Tableau associatif [Numero_licence => Poste]
         $selectionnes = $_POST['selectionne'] ?? []; // Joueurs sélectionnés
         $titulaires = $_POST['titulaire'] ?? []; // Joueurs titulaires parmi les sélectionnés
@@ -92,15 +96,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // Redirection après succès
-        header('Location: PageMatch.php');
-        exit;
+        header('Location: FicheMatch.php?id=' . $idMatch);
+    exit;
 
     } catch (Exception $e) {
-        // Afficher un message d'erreur utilisateur
-        echo '<p class="error">Erreur : ' . htmlspecialchars($e->getMessage()) . '</p>';
+    // Capture l'erreur et prépare le message pour la modale
+    $errorMessage = "Erreur : " . htmlspecialchars($e->getMessage());
     } catch (PDOException $e) {
-        // Gestion des erreurs de la base de données
-        echo '<p class="error">Erreur de la base de données : ' . htmlspecialchars($e->getMessage()) . '</p>';
+    // Capture l'erreur de la base de données
+    $errorMessage = "Erreur de la base de données : " . htmlspecialchars($e->getMessage());
     }
 }
 ?>
@@ -114,6 +118,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Ajouter des joueurs au match</title>
 </head>
 <body>
+
+<div id="errorModal" class="modal" style="display: <?= isset($errorMessage) ? 'block' : 'none'; ?>">
+    <div class="modal-content">
+        <span class="close-btn" onclick="this.closest('.modal').style.display='none'">&times;</span>
+        <p><?= isset($errorMessage) ? htmlspecialchars($errorMessage) : ''; ?></p>
+    </div>
+</div>
 
     <h1>Ajouter des joueurs au match</h1>
     <a class="rtab" href="AjouterMatch.php">Retour au match</a>

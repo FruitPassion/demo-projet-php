@@ -115,8 +115,8 @@ button:hover {
 
 /* Ajouter un effet de survol */
 .checkbox:hover {
-    box-shadow: 0 0 10px darkgoldenrod;
-    transform: scale(1.1); 
+    background-color: burlywood;
+    transform: scale(1.05); 
 }
 
 /* Style pour les cases cochées */
@@ -133,4 +133,40 @@ button:hover {
     border-radius: 5px;
     border: 2px solid darkgoldenrod;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.modal-content {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 300px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.modal p {
+    font-size: 16px;
+    color: red;
 }

@@ -2,6 +2,10 @@
 // Inclure la connexion à la base de données
 require('../bd/ConnexionBD.php');
 
+// Variable pour stocker les messages d'erreur
+$errorMessage = '';
+
+
 // Gestion du formulaire d'ajout de match
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['Date_Match'], $_POST['Heure'], $_POST['Lieu_rencontre'], $_POST['Nom_Equipe_Adverse'])) {
@@ -15,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Vérifier si la date du match est dans le passé
         $currentDate = date('Y-m-d'); // Date actuelle au format YYYY-MM-DD
         if ($Date < $currentDate) {
-            echo 'Erreur : La date du match ne peut pas être dans le passé.';
+            $errorMessage = 'Erreur : La date du match ne peut pas être dans le passé.';
         } else {
             try {
                 // Insertion dans la table Match_
@@ -27,15 +31,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $idMatch = $linkpdo->lastInsertId();
 
                 // Redirection vers la page d'ajout de joueurs
-                header('Location: AjouterMatchJoueur.php?idMatch=' . $idMatch);
+                header('Location: AjouterMatchJoueur.php?Id_Match=' . $idMatch);
                 exit;
 
             } catch (PDOException $e) {
-                echo 'Erreur lors de l\'ajout du match : ' . $e->getMessage();
+                $errorMessage = 'Erreur lors de l\'ajout du match : ' . $e->getMessage();
             }
         }
     } else {
-        echo 'Veuillez remplir tous les champs.';
+        $errorMessage = 'Veuillez remplir tous les champs.';
     }
 }
 ?>
@@ -54,6 +58,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <h1>Ajouter un match</h1>
     <a class="rtab" href="PageMatch.php">Retour au tableau</a>
 
+    <!-- Modale d'erreur -->
+    <?php if (!empty($errorMessage)): ?>
+        <div id="errorModal" class="modal" style="display: block;">
+            <div class="modal-content">
+                <p><?= htmlspecialchars($errorMessage) ?></p>
+                <a href="AjouterMatch.php" class="close-btn">x</a>
+            </div>
+        </div>
+    <?php endif; ?>
+
     <form method="POST">
         <label for="Date_Match">Date :</label>
         <input type="date" id="Date_Match" name="Date_Match" required>
@@ -70,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label for="Nom_Equipe_Adverse">Nom de l'équipe adverse :</label>
         <input type="text" id="Nom_Equipe_Adverse" name="Nom_Equipe_Adverse" required>
 
-        <button type="submit">Ajouter les joueurs</button>
+        <button type="submit">Ajouter Joueurs</button>
     </form>
 
 </body>

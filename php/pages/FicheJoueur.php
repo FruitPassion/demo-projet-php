@@ -20,22 +20,42 @@ if (isset($_GET['id'])) {
     $stmt->execute([$id]);
     $commentaires = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
-    // Format de la date : "DD-MM-YYYY / Hour:minutes"
-    $formatted_date = date("d-m-Y / H:i");
-    $linkpdo->exec("SET time_zone = '+01:00'");
-
 
     // Suppression du joueur si le formulaire de suppression est soumis
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['supprimer'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['supprimer'])) {
+    $stmt = $linkpdo->prepare('SELECT Date_Match FROM Participer NATURAL JOIN Match_ WHERE Numero_licence = ?');
+    $stmt->execute([$id]);
+    $match_dates = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+    $future_match = false;
+    $past_match = false;
+
+    foreach ($match_dates as $date) {
+        if (new DateTime($date) > new DateTime()) {
+            $future_match = true;
+        } else {
+            $past_match = true;
+        }
+    }
+
+    if ($future_match) {
+        $message = "Impossible de supprimer ce joueur : il est associé à un match à venir. Veuillez ajuster la sélection de ce match ou le supprimer avant de retirer ce joueur.";
+    } elseif ($past_match) {
+        $message = "Impossible de supprimer ce joueur : il est associé à un match déjà terminé. Veuillez d'abord supprimer ce match avant de retirer ce joueur.";
+    } else {
+        // Suppression des commentaires liés
         $stmt = $linkpdo->prepare('DELETE FROM Commentaire WHERE numero_licence = ?');
         $stmt->execute([$id]);
 
+        // Suppression du joueur
         $stmt = $linkpdo->prepare('DELETE FROM Joueur WHERE Numero_licence = ?');
         $stmt->execute([$id]);
 
         header('Location: PageJoueurs.php');
         exit;
     }
+}
+
 
     // Mise à jour des informations du joueur si le formulaire est soumis
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
@@ -68,6 +88,22 @@ if (isset($_GET['id'])) {
         header('Location: FicheJoueur.php?id=' . $id);
         exit;
     }
+
+    // Mise à jour de la photo si le formulaire est soumis
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['photo']) && $_FILES['photo']['error'] == UPLOAD_ERR_OK) {
+        $photo = $_FILES['photo'];
+        $photoPath = '../img/' . basename($photo['name']);
+        
+        if (move_uploaded_file($photo['tmp_name'], $photoPath)) {
+            $stmt = $linkpdo->prepare('UPDATE Joueur SET Photo = ? WHERE Numero_licence = ?');
+            $stmt->execute([$photoPath, $id]);
+
+            header('Location: FicheJoueur.php?id=' . $id);
+            exit;
+        } else {
+            die('Erreur lors du téléchargement de la photo.');
+        }
+    }
 } else {
     die('ID non fourni.');
 }
@@ -81,8 +117,16 @@ if (isset($_GET['id'])) {
     <link href="../css/FicheJoueur.css" rel="stylesheet">
     <title>Fiche joueur</title>
 </head>
-
 <body>
+
+<?php if (isset($message)): ?>
+    <div id="modal" class="modal" style="display: block;">
+        <div class="modal-content">
+            <span class="close"><a href="FicheJoueur.php?id=<?= $id; ?>">×</a></span>
+            <p><?= htmlspecialchars($message); ?></p>
+        </div>
+    </div>
+<?php endif; ?>
 
 <h1>Fiche de <?= htmlspecialchars($joueur['Prenom']) . ' ' . htmlspecialchars($joueur['Nom']); ?></h1>
 
@@ -91,6 +135,12 @@ if (isset($_GET['id'])) {
 <div class="photo-container">
     <img src="<?= htmlspecialchars($joueur['Photo'] ?? 'placeholder.png'); ?>" alt="Photo du joueur" class="photo">
 </div>
+
+<form method="POST" enctype="multipart/form-data">
+    <label>Changer la photo :</label><br>
+    <input type="file" name="photo"><br><br>
+    <button type="save">Mettre à jour la photo</button>
+</form>
 
 <form method="POST">
     <label>Nom : <br><input type="text" name="Nom" value="<?= htmlspecialchars($joueur['Nom']); ?>"></label><br>
@@ -126,10 +176,10 @@ if (isset($_GET['id'])) {
     </ul>
 </div>
 
-
 <form method="POST">
     <input type="hidden" name="supprimer" value="1">
     <button class="enregistrer" type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce joueur ?');">Supprimer le joueur</button>
 </form>
+
 </body>
 </html>

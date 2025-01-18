@@ -86,22 +86,6 @@ form textarea {
 }
 
 
-/* Boutons */
-.enregistrer {
-    padding: 10px 10px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.2s ease;
-    font-size: 15px;
-    margin-top: 15px;
-}
-
-.enregistrer:hover {
-    background-color: #218838;
-}
 
 /* Lien de retour */
 .return {
@@ -127,12 +111,20 @@ form input[type="hidden"] {
 }
 
 form button[type="submit"] {
+    padding: 10px;
     background-color: red;
-    margin-top: 8px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 15px;
+    margin-top: 20px;
+    transition: background-color 0.2s ease;
 }
 
 form button[type="submit"]:hover {
     background-color: darkred;
+    transform: scale(1.05);
 }
 
 /* Style pour enregistrer*/
@@ -149,7 +141,8 @@ form button[type="save"] {
 }
 
 form button[type="save"]:hover {
-    background-color: #218838;
+    background-color: #45a049;
+    transform: scale(1.05);
 }
 
 .photo-container {
@@ -227,4 +220,46 @@ form button[type="save"]:hover {
     border-radius: 5px;
     border: 2px solid darkgoldenrod;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal:target {
+    display: block;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.close {
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close a {
+    text-decoration: none;
+    color: black;
+}
+
+.close a:hover,
+.close a:focus {
+    color: red;
+    text-decoration: none;
+    cursor: pointer;
 }

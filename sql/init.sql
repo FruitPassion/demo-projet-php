@@ -44,7 +44,6 @@ CREATE TABLE IF NOT EXISTS Connexion(
 CREATE TABLE IF NOT EXISTS Participer(
    Numero_licence INT,
    Id_Match INT,
-   Id_Equipe INT,
    Titulaire BOOLEAN,
    Evaluation DECIMAL(3,2),
    Poste VARCHAR(15) ,
@@ -54,18 +53,18 @@ CREATE TABLE IF NOT EXISTS Participer(
 );
 
 INSERT INTO Joueur 
-(Numero_licence, Nom, Prenom, Date_naissance, Taille, Poids, Statut) 
+(Numero_licence, Nom, Prenom, Date_naissance, Taille, Poids, Statut, Photo) 
 VALUES 
-(11111111, 'Potter', 'Harry', '1980-07-31', 170.0, 67.0, 'Actif'),
-(22222222, 'Weasley', 'Ron', '1980-03-01', 173.0, 83.0, 'Actif'),
-(33333333, 'Weasley', 'George', '1980-04-01', 183.0, 68.0, 'Actif'),
-(44444444, 'Weasley', 'Fred', '1980-04-01', 184.0, 81.0, 'Actif'),
-(55555555, 'Bell', 'Katie', '1978-07-01', 165.0, 56.0, 'Actif'),
-(66666666, 'Weasley', 'Ginny', '1981-08-11', 158.0, 62.0, 'Actif'),
-(77777777, 'Chang', 'Cho', '1979-04-05', 171.0, 67.0, 'Suspendu'),
-(88888888, 'Malefoy', 'Drago', '1980-06-05', 178.0, 68.0, 'Absent'),
-(99999999, 'Krum', 'Viktor', '1980-07-31', 176.0, 89.0, 'Actif'),
-(12121212, 'Diggory', 'Cédric', '1977-06-14', 172.0, 72.0, 'Actif');
+(11111111, 'Potter', 'Harry', '1980-07-31', 170.0, 67.0, 'Actif', '../img/HarryPotter.png'),
+(22222222, 'Weasley', 'Ron', '1980-03-01', 173.0, 83.0, 'Actif', '../img/RonWeasley.png'),
+(33333333, 'Weasley', 'George', '1980-04-01', 183.0, 68.0, 'Actif', '../img/GeorgeWeasley.png'),
+(44444444, 'Weasley', 'Fred', '1980-04-01', 184.0, 81.0, 'Actif', '../img/FredWeasley.png'),
+(55555555, 'Bell', 'Katie', '1978-07-01', 165.0, 56.0, 'Actif', '../img/KatieBell.png'),
+(66666666, 'Weasley', 'Ginny', '1981-08-11', 158.0, 62.0, 'Actif', '../img/GinnyWeasley.png'),
+(77777777, 'Chang', 'Cho', '1979-04-05', 171.0, 67.0, 'Suspendu', '../img/ChoChang.png'),
+(88888888, 'Malefoy', 'Drago', '1980-06-05', 178.0, 68.0, 'Absent', '../img/DragoMalefoy.png'),
+(99999999, 'Krum', 'Viktor', '1980-07-31', 176.0, 89.0, 'Actif', '../img/VictorKrum.png'),
+(12121212, 'Diggory', 'Cédric', '1977-06-14', 172.0, 72.0, 'Actif', '../img/CedricDiggory.png');
 
 INSERT INTO Match_
 (Id_Match, Date_Match, Heure, Nom_Equipe_Adverse, Lieu_Rencontre, Resultat_Equipe, Resultat_Equipe_Adverse)
