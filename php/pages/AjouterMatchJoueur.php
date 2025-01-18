@@ -116,8 +116,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 
     <h1>Ajouter des joueurs au match</h1>
-    <a href="AjouterMatch.php">Retour au match</a>
-
+    <a class="rtab" href="AjouterMatch.php">Retour au match</a>
+    <div class ="explications">
+        <p> Une équipe doit être constituée de 3 poursuiveurs, 2 batteurs, un gardien et un attrapeur.</p>
+        <p> Il peut y avoir au maximum 4 remplaçants. </p> 
+        <P> Les joueurs qui sont inscrits au match sont cochés dans Sélectionné et les personnes sur le terrain sont cochés dans Titulaire. </p>
+        <p> Les joueurs cochés seulement dans Sélectionné sont remplaçants. </p>
+    </div>  
     <form method="POST">
         <table>
             <thead>

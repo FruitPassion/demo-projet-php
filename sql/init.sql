@@ -53,4 +53,41 @@ CREATE TABLE IF NOT EXISTS Participer(
    FOREIGN KEY(Id_Match) REFERENCES Match_(Id_Match)
 );
 
+INSERT INTO Joueur 
+(Numero_licence, Nom, Prenom, Date_naissance, Taille, Poids, Statut) 
+VALUES 
+(11111111, 'Potter', 'Harry', '1980-07-31', 170.0, 67.0, 'Actif'),
+(22222222, 'Weasley', 'Ron', '1980-03-01', 173.0, 83.0, 'Actif'),
+(33333333, 'Weasley', 'George', '1980-04-01', 183.0, 68.0, 'Actif'),
+(44444444, 'Weasley', 'Fred', '1980-04-01', 184.0, 81.0, 'Actif'),
+(55555555, 'Bell', 'Katie', '1978-07-01', 165.0, 56.0, 'Actif'),
+(66666666, 'Weasley', 'Ginny', '1981-08-11', 158.0, 62.0, 'Actif'),
+(77777777, 'Chang', 'Cho', '1979-04-05', 171.0, 67.0, 'Suspendu'),
+(88888888, 'Malefoy', 'Drago', '1980-06-05', 178.0, 68.0, 'Absent'),
+(99999999, 'Krum', 'Viktor', '1980-07-31', 176.0, 89.0, 'Actif'),
+(12121212, 'Diggory', 'Cédric', '1977-06-14', 172.0, 72.0, 'Actif');
 
+INSERT INTO Match_
+(Id_Match, Date_Match, Heure, Nom_Equipe_Adverse, Lieu_Rencontre, Resultat_Equipe, Resultat_Equipe_Adverse)
+VALUES
+(55,'2025-01-19','11:57:00','Les aigles de Ravenclaw','Extérieur',0,0),
+(66,'2025-01-18','20:00:00','Les serpents de Slytherin','Domicile',150,70);
+
+INSERT INTO Participer
+(Numero_licence, Id_Match, Titulaire, Poste)
+VALUES
+(11111111,55,1,'Attrapeur'),
+(12121212,55,1,'Batteur'),
+(12121212,66,1,'Batteur'),
+(22222222,55,1,'Poursuiveur'),
+(22222222,66,1,'Poursuiveur'),
+(33333333,55,1,'Poursuiveur'),
+(33333333,66,1,'Poursuiveur'),
+(44444444,55,1,'Poursuiveur'),
+(44444444,66,1,'Poursuiveur'),
+(55555555,55,1,'Batteur'),
+(55555555,66,1,'Batteur'),
+(66666666,55,1,'Gardien'),
+(66666666,66,1,'Gardien'),
+(99999999,55,0,'Attrapeur'),
+(99999999,66,1,'Attrapeur');
