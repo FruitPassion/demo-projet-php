@@ -84,7 +84,7 @@ button {
 }
 
 button:hover {
-    background-color: darkgoldenrod;
+    background-color: rgb(42, 148, 42);
 }
 
 .error {

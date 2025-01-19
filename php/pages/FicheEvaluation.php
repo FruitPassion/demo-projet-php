@@ -17,6 +17,23 @@ if (isset($_GET['id']) && isset($_GET['id_match'])) {
         die('Joueur introuvable.');
     }
 
+    // Préparer la requête pour récupérer les données du match
+    $stmt = $linkpdo->prepare("SELECT Date_Match FROM Match_ WHERE Id_Match = ?");
+    $stmt->execute([$id_match]);
+    $match = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Si le match n'est pas trouvé
+    if (!$match) {
+        die('Match introuvable.');
+    }
+
+    // Comparer la date du match avec la date actuelle
+    $dateMatch = new DateTime($match['Date_Match']);
+    $dateActuelle = new DateTime();
+
+    // Vérifier si le match est dans le futur
+    $isFutureMatch = $dateMatch > $dateActuelle;
+
     // Préparer la requête pour récupérer l'évaluation du joueur dans la table Participer
     $stmt = $linkpdo->prepare($select_evaluation);
     $stmt->execute([$id, $id_match]);
@@ -24,9 +41,11 @@ if (isset($_GET['id']) && isset($_GET['id_match'])) {
 
     // Mise à jour de l'évaluation si le formulaire est soumis
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
-        $nouvelle_eval = trim($_POST['Evaluation']);
+        // Récupérer l'évaluation du POST
+        $nouvelle_eval = isset($_POST['Evaluation']) ? trim($_POST['Evaluation']) : null;
 
-        if ($nouvelle_eval === '' || !is_numeric($nouvelle_eval)) {
+        // Si une évaluation est donnée et que ce n'est pas un nombre valide, afficher une erreur
+        if ($nouvelle_eval !== null && !is_numeric($nouvelle_eval)) {
             die('Erreur : Champs invalides ou incomplets.');
         }
 
@@ -49,6 +68,13 @@ if (isset($_GET['id']) && isset($_GET['id_match'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../css/FicheEvaluation.css" rel="stylesheet">
     <title>Fiche Evaluation</title>
+    <style>
+        /* Griser le champ si le match est dans le futur */
+        .disabled-input {
+            background-color: #e0e0e0;
+            cursor: not-allowed;
+        }
+    </style>
 </head>
 <body>
 
@@ -67,10 +93,11 @@ if (isset($_GET['id']) && isset($_GET['id_match'])) {
 
 <form method="POST">
     <label>Evaluation : <br>
-        <input type="number" step="1" name="Evaluation" value="<?= htmlspecialchars($evaluation['Evaluation'] ?? 0); ?>" min="0" max="5">
+        <input type="number" step="1" name="Evaluation" value="<?= htmlspecialchars($evaluation['Evaluation'] ?? 0); ?>" min="0" max="5" <?= $isFutureMatch ? 'disabled class="disabled-input"' : ''; ?>>
     </label><br>
     <button type="submit" name="update">Enregistrer</button>
     <a class="fiche-joueur" href="FicheJoueur.php?id=<?= urlencode($id); ?>" >Voir la fiche du joueur</a>
 </form>
+
 </body>
 </html>

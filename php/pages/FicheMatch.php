@@ -53,25 +53,29 @@ if (empty($errorMessage)) {
     }
 }
 
-// Gestion des formulaires (POST)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['supprimer'])) {
-        // Suppression du match et des participations associées
-        try {
-            $stmt = $linkpdo->prepare($delete_match_participer);
-            $stmt->execute([$id]);
+        // Supprimer un match
+        if (empty($errorMessage) && $isDateDansLePasse) {
+            $errorMessage = 'Erreur : Impossible de supprimer un match déjà joué.';
+        } else {
+            try {
+                // Suppression du match
+                $stmt = $linkpdo->prepare($delete_match_participer);
+                $stmt->execute([$id]);
 
-            $stmt = $linkpdo->prepare($delete_match);
-            $stmt->execute([$id]);
+                $stmt = $linkpdo->prepare($delete_match);
+                $stmt->execute([$id]);
 
-            header('Location: PageMatch.php');
-            exit;
-        } catch (Exception $e) {
-            $errorMessage = 'Erreur lors de la suppression : ' . $e->getMessage();
+                header('Location: PageMatch.php');
+                exit;
+            } catch (Exception $e) {
+                $errorMessage = 'Erreur lors de la suppression : ' . $e->getMessage();
+            }
         }
     }
 
-    if (isset($_POST['Date_Match'], $_POST['Heure'], $_POST['Lieu_rencontre'], 
+    if (empty($errorMessage) && isset($_POST['Date_Match'], $_POST['Heure'], $_POST['Lieu_rencontre'], 
               $_POST['Nom_Equipe_Adverse'], $_POST['Resultat_Equipe'], $_POST['Resultat_Equipe_Adverse'])) {
 
         $Date = $_POST['Date_Match'];
@@ -82,12 +86,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $Resultat_Equipe_Adverse = $_POST['Resultat_Equipe_Adverse'];
 
         // Validation des champs
-        if (empty($Date) || empty($Heure) || !in_array($Lieu_rencontre, ['Domicile', 'Extérieur']) || 
+        if (empty($errorMessage) && empty($Date) || empty($Heure) || !in_array($Lieu_rencontre, ['Domicile', 'Extérieur']) || 
             empty($Nom_Equipe_Adverse) || !is_numeric($Resultat_Equipe) || !is_numeric($Resultat_Equipe_Adverse)) {
             $errorMessage = 'Erreur : Champs invalides ou incomplets.';
         } else {
             $dateMatchUpdate = new DateTime($Date);
-            if ($dateMatchUpdate < new DateTime() && !$isDateDansLePasse) {
+            
+            // Vérification de la date du match dans le passé
+            if (empty($errorMessage) && $dateMatchUpdate < new DateTime() && !$isDateDansLePasse) {
                 $errorMessage = 'Erreur : Vous ne pouvez pas enregistrer un match avec une date dans le passé.';
             } else {
                 try {
@@ -102,9 +108,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
     } else {
+        if (empty($errorMessage)) 
         $errorMessage = 'Erreur : Champs invalides ou incomplets.';
     }
 }
+
+
 ?>
 
 

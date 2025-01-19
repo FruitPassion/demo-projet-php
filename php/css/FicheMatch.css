@@ -137,8 +137,9 @@ button:hover {
 button.disabled-btn {
     background-color: #d3d3d3;
     color: #a9a9a9;
-    cursor: not-allowed;
+    cursor: not-allowed; 
 }
+
 
 .modal {
     display: none;

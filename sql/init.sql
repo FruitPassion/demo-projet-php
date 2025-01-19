@@ -92,14 +92,10 @@ VALUES
 (66666666,66,1,3,'Gardien'),
 (99999999,55,0,5,'Attrapeur'),
 (99999999,66,1,2,'Attrapeur'),
-
-INSERT INTO Participer
-(Numero_licence, Id_Match, Titulaire, Poste)
-VALUES
-(66666666,77,1,'Attrapeur'),
-(55555555,77,1,'Batteur'),
-(12121212,77,1,'Batteur'),
-(99999999,77,1,'Poursuiveur'),
-(22222222,77,1,'Poursuiveur'),
-(33333333,77,1,'Poursuiveur'),
-(44444444,77,1,'Gardien');
+(66666666,77,1,0,'Attrapeur'),
+(55555555,77,1,0,'Batteur'),
+(12121212,77,1,0,'Batteur'),
+(99999999,77,1,0,'Poursuiveur'),
+(22222222,77,1,0,'Poursuiveur'),
+(33333333,77,1,0,'Poursuiveur'),
+(44444444,77,1,0,'Gardien');

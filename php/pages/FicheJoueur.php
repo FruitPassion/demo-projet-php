@@ -23,26 +23,24 @@ if (isset($_GET['id'])) {
     
 
     // Suppression du joueur si le formulaire de suppression est soumis
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['supprimer'])) {
-    $stmt = $linkpdo->prepare($verif_match);
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['supprimer'])) {
+    // Préparer la requête pour vérifier si le joueur est dans un match futur
+    $stmt = $linkpdo->prepare("SELECT Date_Match FROM Participer NATURAL JOIN Match_ WHERE Numero_licence = ? AND Date_Match > CURDATE()");
     $stmt->execute([$id]);
     $match_dates = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
+    // Vérifier s'il existe des matchs futurs
     $future_match = false;
-    $past_match = false;
 
     foreach ($match_dates as $date) {
         if (new DateTime($date) > new DateTime()) {
             $future_match = true;
-        } else {
-            $past_match = true;
+            break; // On peut sortir dès qu'on trouve un match futur
         }
     }
 
     if ($future_match) {
         $message = "Impossible de supprimer ce joueur : il est associé à un match à venir. Veuillez ajuster la sélection de ce match ou le supprimer avant de retirer ce joueur.";
-    } elseif ($past_match) {
-        $message = "Impossible de supprimer ce joueur : il est associé à un match déjà terminé. Veuillez d'abord supprimer ce match avant de retirer ce joueur.";
     } else {
         // Suppression des commentaires liés
         $stmt = $linkpdo->prepare($delete_commentaire);
@@ -55,6 +53,10 @@ if (isset($_GET['id'])) {
         header('Location: PageJoueurs.php');
         exit;
     }
+
+
+
+
 }
 
 

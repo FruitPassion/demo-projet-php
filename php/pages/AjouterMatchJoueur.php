@@ -38,9 +38,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Vérification des joueurs sélectionnés
         foreach ($selectionnes as $numeroLicence => $valeur) {
+            // Trouver le joueur dans la liste
+            $joueur = array_filter($joueurs, function ($j) use ($numeroLicence) {
+            return $j['Numero_licence'] == $numeroLicence;
+            });
+            $joueur = reset($joueur); // Obtenir le premier (et unique) résultat
+            
             // Vérifier si un poste a été attribué
             if (!isset($postes[$numeroLicence]) || empty($postes[$numeroLicence])) {
-                throw new Exception("Le joueur $numeroLicence est sélectionné mais n'a pas de poste.");
+                $nomPrenom = $joueur['Prenom'] . ' ' . $joueur['Nom'];
+                throw new Exception("Le joueur $nomPrenom est sélectionné mais ne possède pas de poste.");
             }
 
             $poste = $postes[$numeroLicence];
