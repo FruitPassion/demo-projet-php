@@ -2,11 +2,48 @@
 require('../bd/ConnexionBD.php');
 require('../requetesSql.php');
 
-$stmt = $linkpdo->query('SELECT Date_Match, Heure, Lieu_Rencontre, Nom_Equipe_Adverse, Resultat_Equipe, Resultat_Equipe_Adverse, Id_Match FROM Match_');
+$stmt = $linkpdo->prepare($select_match_concat_date_heure);
+$stmt->execute(['current_datetime' => date('Y-m-d H:i:s')]);
 $matchs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$stmt = $linkpdo->query('SELECT Numero_licence, Nom, Prenom, Statut, photo FROM Joueur');
+$stmt = $linkpdo->prepare($select_joueur);
+$stmt->execute();
 $joueurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+function getDataFromQuery($linkpdo, $requete, $joueur, $paramAttendu){
+    $stmt = $linkpdo->prepare($requete);
+    $stmt->execute([$joueur["Numero_licence"]]);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($result == FALSE){
+        return "-";
+    } else {
+        $temp_value = $result[$paramAttendu];
+        if (is_numeric($temp_value)) {
+            $temp_value = (int)floatval($temp_value);
+        }
+        return $temp_value;
+    }
+}
+
+$matchs_gagnes = 0;
+$matchs_perdus = 0;
+$matchs_nuls = 0;
+
+foreach ($matchs as $match) {
+    if ($match['Resultat_Equipe'] > $match['Resultat_Equipe_Adverse']) {
+        $matchs_gagnes++;
+    } elseif ($match['Resultat_Equipe'] < $match['Resultat_Equipe_Adverse']) {
+        $matchs_perdus++;
+    } else {
+        $matchs_nuls++;
+    }
+}
+
+$nombre_total_match = count($matchs);
+$pourcentage_matchs_gagnes = $nombre_total_match > 0 ? round(($matchs_gagnes / $nombre_total_match) * 100, 2) : 0;
+$pourcentage_matchs_perdus = $nombre_total_match > 0 ? round(($matchs_perdus / $nombre_total_match) * 100, 2) : 0;
+$pourcentage_matchs_nuls = $nombre_total_match > 0 ? round(($matchs_nuls / $nombre_total_match) * 100, 2) : 0;
+
 ?>
 
 <!DOCTYPE html>
@@ -37,54 +74,64 @@ $joueurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <table>
             <thead>
                 <tr>
-                    <th>Gagnés</th>
-                    <th>Perdus</th>
-                    <th>Nuls</th>
+                    <th></th>
+                    <th>Nombre</th>
+                    <th>Pourcentage</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($joueurs as $joueur): ?>
-                <tr>
-                    <td><?= htmlspecialchars($joueur['Nom'] ?? 'Inconnu'); ?></td>
-                    <td><?= htmlspecialchars($joueur['Nom'] ?? 'Inconnu'); ?></td>
-                    <td><?= htmlspecialchars($joueur['Nom'] ?? 'Inconnu'); ?></td>
+            <tr>
+                    <td class="type">Gagnés</td>
+                    <td><?php echo $matchs_gagnes; ?></td>
+                    <td><?php echo $pourcentage_matchs_gagnes; ?>%</td>
                 </tr>
-                <?php endforeach; ?>
+                <tr>
+                    <td class="type">Perdus</td>
+                    <td><?php echo $matchs_perdus; ?></td>
+                    <td><?php echo $pourcentage_matchs_perdus; ?>%</td>
+                </tr>
+                <tr>
+                    <td class="type">Nuls</td>
+                    <td><?php echo $matchs_nuls; ?></td>
+                    <td><?php echo $pourcentage_matchs_nuls; ?>%</td>
+                </tr>
             </tbody>
             </table>
         </div>
         <div class="deux">
             <h3> Données par joueur </h3>
-            <table>
-            <thead>
-                <tr>
-                    <th>Joueur</th>
-                    <th>Status</th>
-                    <th>Poste préféré</th>
-                    <th>Nombre Titulaire</th>
-                    <th>Remplaçant</th>
-                    <th>Sélection consécutives</th>
-                    <th>Moyenne évaluations</th>
-                    <th>Matchs gagnés</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($joueurs as $joueur): 
-                ?>
-                <tr>
-                <td><?= htmlspecialchars($joueur['Nom'] ?? 'Inconnu'); ?></td>
-                <td><?= htmlspecialchars($joueur['Statut'] ?? 'Non défini'); ?></td>
-                <td><?= htmlspecialchars($joueur['Nom'] ?? 'Inconnu'); ?></td>
-                <td><?= htmlspecialchars($joueur['Nom'] ?? 'Inconnu'); ?></td>
-                <td><?= htmlspecialchars($joueur['Nom'] ?? 'Inconnu'); ?></td>
-                <td><?= htmlspecialchars($joueur['Nom'] ?? 'Inconnu'); ?></td>
-                <td><?= htmlspecialchars($joueur['Nom'] ?? 'Inconnu'); ?></td>
-                <td><?= htmlspecialchars($joueur['Nom'] ?? 'Inconnu'); ?></td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-            </table>
+            <div style="display:flex;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Joueur</th>
+                            <th>Statut</th>
+                            <th>Poste préféré</th>
+                            <th>Sélections titulaire</th>
+                            <th>Sélections remplaçant</th>
+                            <th>Sélections consécutives</th>
+                            <th>Moyenne évaluations</th>
+                            <th>Matchs gagnés</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($joueurs as $joueur) :?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($joueur['Nom']).' '.htmlspecialchars($joueur['Prenom']); ?></td>
+                            <td><?php echo htmlspecialchars($joueur['Statut']); ?></td>
+                            <td><?php echo htmlspecialchars(getDataFromQuery($linkpdo, $poste_prefere, $joueur, "Poste")); ?></td>
+                            <td><?php echo htmlspecialchars(getDataFromQuery($linkpdo, $nb_titulaire, $joueur, "Titulaire")); ?></td>
+                            <td><?php echo htmlspecialchars(getDataFromQuery($linkpdo, $nb_remplacant, $joueur, "Remplacant")); ?></td>
+                            <td><?php echo htmlspecialchars(getDataFromQuery($linkpdo, $nb_selec_consecutive, $joueur, "ConsecutiveSelections")); ?></td>
+                            <td><?php echo htmlspecialchars(getDataFromQuery($linkpdo, $moyenne_eval, $joueur, "Moyenne_Evaluation")); ?></td>
+                            <td><?php echo htmlspecialchars(getDataFromQuery($linkpdo, $participation_match_gagne, $joueur, "Nombre_Participations_Matchs_Gagnes")); ?></td>
+                        </tr>
+                        <?php endforeach;?>
+                    </tbody>
+                </table>
+            </div>
         </div>
+        
     </div>
 
 <a class="return" href="PageAccueil.php">Retour à l'accueil</a>

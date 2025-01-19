@@ -75,23 +75,27 @@ VALUES
 
 
 INSERT INTO Participer
+(Numero_licence, Id_Match, Titulaire, Evaluation, Poste)
+VALUES
+(11111111,55,1,1,'Attrapeur'),
+(12121212,55,1,5,'Batteur'),
+(12121212,66,1,4,'Batteur'),
+(22222222,55,1,1,'Poursuiveur'),
+(22222222,66,1,2,'Poursuiveur'),
+(33333333,55,1,2,'Poursuiveur'),
+(33333333,66,1,3,'Poursuiveur'),
+(44444444,55,1,5,'Poursuiveur'),
+(44444444,66,1,3,'Poursuiveur'),
+(55555555,55,1,2,'Batteur'),
+(55555555,66,1,1,'Batteur'),
+(66666666,55,1,5,'Gardien'),
+(66666666,66,1,3,'Gardien'),
+(99999999,55,0,5,'Attrapeur'),
+(99999999,66,1,2,'Attrapeur'),
+
+INSERT INTO Participer
 (Numero_licence, Id_Match, Titulaire, Poste)
 VALUES
-(11111111,55,1,'Attrapeur'),
-(12121212,55,1,'Batteur'),
-(12121212,66,1,'Batteur'),
-(22222222,55,1,'Poursuiveur'),
-(22222222,66,1,'Poursuiveur'),
-(33333333,55,1,'Poursuiveur'),
-(33333333,66,1,'Poursuiveur'),
-(44444444,55,1,'Poursuiveur'),
-(44444444,66,1,'Poursuiveur'),
-(55555555,55,1,'Batteur'),
-(55555555,66,1,'Batteur'),
-(66666666,55,1,'Gardien'),
-(66666666,66,1,'Gardien'),
-(99999999,55,0,'Attrapeur'),
-(99999999,66,1,'Attrapeur'),
 (66666666,77,1,'Attrapeur'),
 (55555555,77,1,'Batteur'),
 (12121212,77,1,'Batteur'),

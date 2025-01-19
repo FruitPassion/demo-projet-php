@@ -32,7 +32,6 @@ header {
 }
 
 table {
-    width: 80%;
     margin: 10px auto;
     border-collapse: collapse;
 }
@@ -51,6 +50,12 @@ th {
 
 td {
     background-color: burlywood;
+}
+
+.type {
+    background-color: darkgoldenrod;
+    color: white;
+    font-size: 18px;
 }
 
 a.btn {
