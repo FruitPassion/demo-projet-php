@@ -1,5 +1,4 @@
 <?php
-require('../checkSession.php');
 require('../bd/ConnexionBD.php');
 require('../requetesSql.php');
 
@@ -42,6 +41,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['supprimer'])) {
 
     if ($future_match) {
         $message = "Impossible de supprimer ce joueur : il est associé à un match à venir. Veuillez ajuster la sélection de ce match ou le supprimer avant de retirer ce joueur.";
+    }if (!$future_match) {
+            $message = "Impossible de supprimer ce joueur : il est associé à un match passé.";
     } else {
         // Suppression des commentaires liés
         $stmt = $linkpdo->prepare($delete_commentaire);
