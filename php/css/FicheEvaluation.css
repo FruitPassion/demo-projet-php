@@ -13,19 +13,7 @@ h1 {
     margin-top: 20px;
 }
 
-.info{
-    width: 40%;
-    margin: 0 auto;
-    padding: 15px;
-    background-color: burlywood;
-    border-radius: 5px;
-    border: 2px solid darkgoldenrod;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 15px;
-}
-
-/* Formulaire */
-form {
+.info, form {
     width: 40%;
     margin: 0 auto;
     padding: 15px;
@@ -56,42 +44,33 @@ form textarea {
     height: 100px;
 }
 
-
-
-
-/* Lien de retour */
-.return {
-    padding: 10px 10px;
-    background-color: burlywood;
+.return, form button[type="submit"] {
+    padding: 10px;
+    background-color: darkgoldenrod;
     color: white;
     border: none;
     cursor: pointer;
     border-radius: 5px;
     font-size: 15px;
-    margin-top: 0%;
     transition: background-color 0.2s ease;
-    margin-left: 5%;
 }
 
-.return:hover {
+.fiche-joueur, form button[type="submit"] {
+    padding: 10px;
+    background-color: green;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 15px;
+    transition: background-color 0.2s ease;
+}
+
+.return:hover, form button[type="submit"]:hover {
     background-color: rgb(233, 194, 144);
 }
 
-
-
-/* Style pour enregistrer*/
-form button[type="submit"] {
-    padding: 10px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 15px;
-    transition: background-color 0.2s ease;
-}
-
-form button[type="submit"]:hover {
+.fiche-joueur:hover, form button[type="submit"]:hover {
     background-color: #45a049;
     transform: scale(1.05);
 }
@@ -100,7 +79,6 @@ form button[type="submit"]:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
 }
 
 .photo {
@@ -114,15 +92,4 @@ form button[type="submit"]:hover {
 
 .photo:hover {
     opacity: 0.8;
-}
-
-.fiche-joueur{
-    padding: 10px 10px;
-    background-color: rgb(223, 166, 92);
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 15px;
-    transition: background-color 0.2s ease;
 }

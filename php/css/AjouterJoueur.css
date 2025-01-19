@@ -88,24 +88,3 @@ form button[type="submit"]:hover {
 form input[required], form select[required] {
     background-color: whitesmoke;
 }
-
-/* Style pour l'affichage de la photo */
-.photo-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-}
-
-.photo {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-    cursor: pointer;
-    border: 3px solid darkgoldenrod;
-}
-
-.photo:hover {
-    opacity: 0.5;
-}

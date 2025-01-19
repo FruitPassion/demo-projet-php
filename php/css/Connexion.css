@@ -6,14 +6,44 @@ body {
 }
 
 .co1 {
-    width: 30%;
-    padding-bottom: 5%;
+    width: 25%; /* Réduire la largeur de la boîte de connexion */
+    min-height: 300px;  /* Garder la hauteur plus petite */
+    padding: 15px; /* Réduire l'espace intérieur */
     background-color: burlywood;
     border: solid;
     border-color: darkgoldenrod;
     border-radius: 10px;
-    display:flex;
+    display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+.input-field {
+    padding: 8px;
+    margin: 5px;
+    width: 80%; /* Largeur des champs d'entrée */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.submit-btn {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 8px 16px;  /* Réduire les espacements pour un bouton plus petit */
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    font-size: 14px;  /* Réduire la taille de la police */
+}
+
+.submit-btn:hover {
+    background-color: rgb(59, 172, 59);
+}
+
+.error-message {
+    color: red;
+    text-align: center;
+    margin-bottom: 20px;
 }

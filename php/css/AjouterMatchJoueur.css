@@ -80,6 +80,7 @@ button {
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s;
+    font-size: 16px;
 }
 
 button:hover {
@@ -101,16 +102,14 @@ button:hover {
 }
 
 /* Style spécifique pour les boutons */
-.bouton-titulaire {
-    background-color: brown;
-    border: 2px solid #8B4513; 
-    border-radius: 5px; 
-}
-
-.bouton-selectionne {
+.bouton-titulaire, .bouton-selectionne {
     background-color: brown;
     border: 2px solid #8B4513; 
     border-radius: 5px;
+}
+
+.bouton-titulaire:hover, .bouton-selectionne:hover {
+    background-color: #A0522D;
 }
 
 /* Ajouter un effet de survol */
@@ -125,6 +124,7 @@ button:hover {
     border-color: #A0522D;
 }
 
+/* Explications */
 .explications {
     max-width: 800px;
     margin: 0 auto;

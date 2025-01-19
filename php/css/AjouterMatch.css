@@ -40,14 +40,11 @@ form input, form select {
     border-radius: 5px;
 }
 
-form input[type="file"] {
-    padding: 5px;
-}
-
 form select {
     width: 98%;
 }
 
+/* Bouton de soumission */
 form button[type="submit"] {
     padding: 10px;
     background-color: #28a745;
@@ -83,34 +80,12 @@ form button[type="submit"]:hover {
     background-color: rgb(221, 171, 106);
 }
 
-/* Style pour les champs obligatoires */
+/* Champs obligatoires */
 form input[required], form select[required] {
     background-color: whitesmoke;
 }
 
-/* Style pour l'affichage de la photo */
-.photo-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-}
-
-.photo {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-    cursor: pointer;
-    border: 3px solid darkgoldenrod;
-}
-
-.photo:hover {
-    opacity: 0.5;
-}
-
-
-/* Style de la modale */
+/* Style pour la modale */
 .modal {
     display: none;
     position: fixed;
@@ -129,14 +104,14 @@ form input[required], form select[required] {
     border-radius: 5px;
     width: 80%;
     max-width: 500px;
-    position: relative; /* Permet de positionner des éléments enfants en absolu */
+    position: relative;
 }
 
 /* Bouton de fermeture */
 .close-btn {
-    position: absolute; /* Positionnement absolu par rapport au parent (modal-content) */
-    top: 10px; /* Distance depuis le haut */
-    right: 10px; /* Distance depuis la droite */
+    position: absolute;
+    top: 10px;
+    right: 10px;
     color: black;
     font-size: 24px;
     font-weight: bold;
