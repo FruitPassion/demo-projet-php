@@ -1,6 +1,7 @@
 <?php
 // Inclure la connexion à la base de données depuis le dossier "BD"
 require('../bd/ConnexionBD.php');
+require('../requetesSql.php');
 
 // Gestion du formulaire d'ajout de joueur
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -22,8 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Insertion dans la table Joueur
-    $stmt = $linkpdo->prepare('INSERT INTO Joueur (nom, prenom, numero_licence, date_naissance, poids, taille, statut, photo) 
-                               VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
+    $stmt = $linkpdo->prepare($insert_joueur);
     $stmt->execute([$nom, $prenom, $numero_licence, $date_naissance, $poids, $taille, $statut, $photo]);
 
     // Redirection vers la page principale après l'ajout

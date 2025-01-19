@@ -69,8 +69,10 @@ VALUES
 INSERT INTO Match_
 (Id_Match, Date_Match, Heure, Nom_Equipe_Adverse, Lieu_Rencontre, Resultat_Equipe, Resultat_Equipe_Adverse)
 VALUES
-(55,'2025-01-19','11:57:00','Les aigles de Ravenclaw','Extérieur',0,0),
-(66,'2025-01-18','20:00:00','Les serpents de Slytherin','Domicile',150,70);
+(55,'2025-01-19','11:57:00','Les aigles de Ravenclaw','Extérieur',12,85),
+(66,'2025-01-18','20:00:00','Les serpents de Slytherin','Domicile',150,70),
+(77,'2025-02-05','20:00:00','Les lions de Gryffondor','Domicile',0,0);
+
 
 INSERT INTO Participer
 (Numero_licence, Id_Match, Titulaire, Poste)
@@ -89,4 +91,11 @@ VALUES
 (66666666,55,1,'Gardien'),
 (66666666,66,1,'Gardien'),
 (99999999,55,0,'Attrapeur'),
-(99999999,66,1,'Attrapeur');
+(99999999,66,1,'Attrapeur'),
+(66666666,77,1,'Attrapeur'),
+(55555555,77,1,'Batteur'),
+(12121212,77,1,'Batteur'),
+(99999999,77,1,'Poursuiveur'),
+(22222222,77,1,'Poursuiveur'),
+(33333333,77,1,'Poursuiveur'),
+(44444444,77,1,'Gardien');

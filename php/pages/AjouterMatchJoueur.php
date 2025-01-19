@@ -1,6 +1,7 @@
 <?php
 // Inclure la connexion à la base de données
 require('../bd/ConnexionBD.php');
+require('../requetesSql.php');
 
 // Récupérer l'ID du match
 $idMatch = $_GET['Id_Match'] ?? null;
@@ -9,14 +10,14 @@ if (!$idMatch) {
 }
 
 // Récupérer les joueurs actifs
-$stmt = $linkpdo->query("SELECT Numero_licence, Nom, Prenom, Taille, Poids FROM Joueur WHERE Statut = 'Actif'");
+$stmt = $linkpdo->query($select_joueur_actif);
 $joueurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Gestion du formulaire d'ajout des joueurs au match
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
 
-        $stmt = $linkpdo->prepare('DELETE FROM Participer WHERE Id_Match = ?');
+        $stmt = $linkpdo->prepare($delete_match_participer);
         $stmt->execute([$idMatch]);
 
         $postes = $_POST['poste'] ?? []; // Tableau associatif [Numero_licence => Poste]
@@ -75,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // Préparer la requête d'insertion
-        $stmt = $linkpdo->prepare('INSERT INTO Participer (Numero_licence, Id_Match, Poste, Titulaire) VALUES (?, ?, ?, ?)');
+        $stmt = $linkpdo->prepare($insert_participer);
 
         foreach ($selectionnes as $numeroLicence => $valeur) {
             $poste = $postes[$numeroLicence];
@@ -83,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $titulaire = $isTitulaire ? 1 : 0;
 
             // Vérifier si le joueur est déjà inscrit pour ce match
-            $checkStmt = $linkpdo->prepare('SELECT COUNT(*) FROM Participer WHERE Numero_licence = ? AND Id_Match = ?');
+            $checkStmt = $linkpdo->prepare($select_joueur_inscrit);
             $checkStmt->execute([$numeroLicence, $idMatch]);
             $exists = $checkStmt->fetchColumn();
 
@@ -130,7 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <a class="rtab" href="AjouterMatch.php">Retour au match</a>
     <div class ="explications">
         <p> Une équipe doit être constituée de 3 poursuiveurs, 2 batteurs, un gardien et un attrapeur.</p>
-        <p> Il peut y avoir au maximum 4 remplaçants. </p> 
+        <p> Les remplaçants sont facultatifs et il peut y en avoir 4 maximum. </p> 
         <P> Les joueurs qui sont inscrits au match sont cochés dans Sélectionné et les personnes sur le terrain sont cochés dans Titulaire. </p>
         <p> Les joueurs cochés seulement dans Sélectionné sont remplaçants. </p>
     </div>  

@@ -1,6 +1,7 @@
 <?php
 // Inclure la connexion à la base de données
 require('../bd/ConnexionBD.php');
+require('../requetesSql.php');
 
 // Variable pour stocker les messages d'erreur
 $errorMessage = '';
@@ -23,8 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             try {
                 // Insertion dans la table Match_
-                $stmt = $linkpdo->prepare('INSERT INTO Match_ (Date_Match, Heure, Lieu_Rencontre, Nom_Equipe_Adverse) 
-                                           VALUES (?, ?, ?, ?)');
+                $stmt = $linkpdo->prepare($insert_match);
                 $stmt->execute([$Date, $Heure, $Lieu_rencontre, $Nom_Equipe_Adverse]);
 
                 // Récupérer l'ID du match inséré

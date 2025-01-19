@@ -1,9 +1,10 @@
 <?php
 require('../bd/ConnexionBD.php');
+require('../requetesSql.php');
 
 
 // Récupérer tous les matchs triés par date décroissante
-$stmt = $linkpdo->query('SELECT Date_Match, Heure, Lieu_Rencontre, Nom_Equipe_Adverse, Resultat_Equipe, Resultat_Equipe_Adverse, Id_Match FROM Match_ ORDER BY Date_Match DESC');
+$stmt = $linkpdo->query($select_match_desc);
 $matchs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Séparer les matchs en deux catégories : futurs et passés

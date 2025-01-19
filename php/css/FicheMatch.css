@@ -45,8 +45,6 @@ form {
     padding: 15px;
     background-color: burlywood;
     border-radius: 5px;
-    border: 2px solid darkgoldenrod;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-bottom: 15px;
 }
 
@@ -67,16 +65,15 @@ form input, form select, form textarea {
 
 /* Lien de retour */
 .return {
-    padding: 10px 10px;
+    padding: 10px;
     background-color: burlywood;
     color: white;
     border: none;
     cursor: pointer;
     border-radius: 5px;
     font-size: 15px;
-    margin-top: 0%;
+    margin-left:5%;
     transition: background-color 0.2s ease;
-    margin-left: 5%;
 }
 
 .return:hover {
@@ -97,7 +94,7 @@ form button[type="submit"] {
     border-radius: 5px;
     transition: background-color 0.2s ease;
     font-size: 15px;
-    margin-top: 15px;
+    margin-left: 95%;
 }
 
 form button[type="submit"]:hover {
@@ -133,72 +130,6 @@ input[readonly], input[disabled], select[disabled], textarea[readonly] {
     color: #b0b0b0; /* Texte gris */
     cursor: not-allowed; /* Curseur interdit */
     border: 1px solid #ccc; /* Bordure gris clair */
-}
-
-.photo-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-}
-
-.photo {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-    cursor: pointer;
-    border: 3px solid darkgoldenrod;
-}
-
-.photo:hover {
-    opacity: 0.8;
-}
-
-.menu-container {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-}
-
-.menu-button {
-    background-color: darkgoldenrod;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 24px;
-}
-
-.menu-content {
-    display: none;
-    position: absolute;
-    top: 40px;
-    left: 0;
-    background-color: antiquewhite;
-    border: 1px solid darkgoldenrod;
-    border-radius: 5px;
-    width: 150px;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
-    z-index: 1;
-}
-
-.menu-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    border-bottom: 1px solid darkgoldenrod;
-}
-
-.menu-content a:hover {
-    background-color: burlywood;
-}
-
-.menu-button:focus + .menu-content,
-.menu-content:hover {
-    display: block;
 }
 
 .grise {

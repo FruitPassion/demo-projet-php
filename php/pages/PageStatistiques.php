@@ -1,5 +1,6 @@
 <?php
 require('../bd/ConnexionBD.php');
+require('../requetesSql.php');
 
 $stmt = $linkpdo->query('SELECT Date_Match, Heure, Lieu_Rencontre, Nom_Equipe_Adverse, Resultat_Equipe, Resultat_Equipe_Adverse, Id_Match FROM Match_');
 $matchs = $stmt->fetchAll(PDO::FETCH_ASSOC);

@@ -1,7 +1,8 @@
 <?php
 require('../bd/ConnexionBD.php');
+require('../requetesSql.php');
 
-$stmt = $linkpdo->query('SELECT Numero_licence, Nom, Prenom, Statut, photo FROM Joueur');
+$stmt = $linkpdo->query($select_joueur);
 $joueurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 

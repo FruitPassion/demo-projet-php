@@ -1,5 +1,6 @@
 <?php
 require('../bd/ConnexionBD.php');
+require('../requetesSql.php');
 
 // Vérifier si l'ID du joueur et l'ID du match sont fournis
 if (isset($_GET['id']) && isset($_GET['id_match'])) {
@@ -7,7 +8,7 @@ if (isset($_GET['id']) && isset($_GET['id_match'])) {
     $id_match = $_GET['id_match'];
 
     // Préparer la requête pour récupérer les données du joueur
-    $stmt = $linkpdo->prepare('SELECT * FROM Joueur WHERE Numero_licence = ?');
+    $stmt = $linkpdo->prepare($select_infos_joueur);
     $stmt->execute([$id]);
     $joueur = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -17,7 +18,7 @@ if (isset($_GET['id']) && isset($_GET['id_match'])) {
     }
 
     // Préparer la requête pour récupérer l'évaluation du joueur dans la table Participer
-    $stmt = $linkpdo->prepare('SELECT Evaluation FROM Participer WHERE Numero_licence = ? AND Id_Match = ?');
+    $stmt = $linkpdo->prepare($select_evaluation);
     $stmt->execute([$id, $id_match]);
     $evaluation = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -29,7 +30,7 @@ if (isset($_GET['id']) && isset($_GET['id_match'])) {
             die('Erreur : Champs invalides ou incomplets.');
         }
 
-        $stmt = $linkpdo->prepare('UPDATE Participer SET Evaluation = ? WHERE Numero_licence = ? AND Id_Match = ?');
+        $stmt = $linkpdo->prepare($update_evaluation);
         $stmt->execute([$nouvelle_eval, $id, $id_match]);
 
         // Redirection après succès
@@ -53,26 +54,23 @@ if (isset($_GET['id']) && isset($_GET['id_match'])) {
 
 <h1>Fiche d'évaluation de <?= htmlspecialchars($joueur['Prenom']) . ' ' . htmlspecialchars($joueur['Nom']); ?></h1>
 
-<div><a class="fiche-match" href="FicheMatch.php?id=<?= urlencode($id_match); ?>">Retour</a></div>
+<a class="return" href="FicheMatch.php?id=<?= urlencode($id_match); ?>">Retour</a>
 
 <div class="photo-container">
     <img src="<?= htmlspecialchars($joueur['Photo'] ?? 'placeholder.png'); ?>" alt="Photo du joueur" class="photo">
 </div>
 
-<p><strong>Nom :</strong> <?= htmlspecialchars($joueur['Nom']); ?></p>
-<p><strong>Prénom :</strong> <?= htmlspecialchars($joueur['Prenom']); ?></p>
+<div class="info">
+    <p><strong>Nom :</strong> <?= htmlspecialchars($joueur['Nom']); ?></p>
+    <p><strong>Prénom :</strong> <?= htmlspecialchars($joueur['Prenom']); ?></p>
+</div>
 
 <form method="POST">
     <label>Evaluation : <br>
         <input type="number" step="1" name="Evaluation" value="<?= htmlspecialchars($evaluation['Evaluation'] ?? 0); ?>" min="0" max="5">
     </label><br>
     <button type="submit" name="update">Enregistrer</button>
+    <a class="fiche-joueur" href="FicheJoueur.php?id=<?= urlencode($id); ?>" >Voir la fiche du joueur</a>
 </form>
-
-
-<div>
-    <a href="FicheJoueur.php?id=<?= urlencode($id); ?>" class="btn fiche-joueur">Voir la fiche du joueur</a>
-</div>
-
 </body>
 </html>

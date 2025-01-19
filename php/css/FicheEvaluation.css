@@ -13,6 +13,16 @@ h1 {
     margin-top: 20px;
 }
 
+.info{
+    width: 40%;
+    margin: 0 auto;
+    padding: 15px;
+    background-color: burlywood;
+    border-radius: 5px;
+    border: 2px solid darkgoldenrod;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+}
 
 /* Formulaire */
 form {
@@ -70,7 +80,7 @@ form textarea {
 
 
 /* Style pour enregistrer*/
-form button[type="save"] {
+form button[type="submit"] {
     padding: 10px;
     background-color: #28a745;
     color: white;
@@ -78,11 +88,10 @@ form button[type="save"] {
     cursor: pointer;
     border-radius: 5px;
     font-size: 15px;
-    margin-top: 20px;
     transition: background-color 0.2s ease;
 }
 
-form button[type="save"]:hover {
+form button[type="submit"]:hover {
     background-color: #45a049;
     transform: scale(1.05);
 }
@@ -107,48 +116,13 @@ form button[type="save"]:hover {
     opacity: 0.8;
 }
 
-.menu-container {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-}
-
-.menu-button {
-    background-color: darkgoldenrod;
+.fiche-joueur{
+    padding: 10px 10px;
+    background-color: rgb(223, 166, 92);
     color: white;
-    padding: 10px;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
-    font-size: 24px;
-}
-
-.menu-content {
-    display: none;
-    position: absolute;
-    top: 40px;
-    left: 0;
-    background-color: antiquewhite;
-    border: 1px solid darkgoldenrod;
     border-radius: 5px;
-    width: 150px;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
-    z-index: 1;
-}
-
-.menu-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    border-bottom: 1px solid darkgoldenrod;
-}
-
-.menu-content a:hover {
-    background-color: burlywood;
-}
-
-.menu-button:focus + .menu-content,
-.menu-content:hover {
-    display: block;
+    font-size: 15px;
+    transition: background-color 0.2s ease;
 }

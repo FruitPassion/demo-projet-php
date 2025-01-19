@@ -1,12 +1,13 @@
 <?php
 require('../bd/ConnexionBD.php');
+require('../requetesSql.php');
 
 // Vérifier si l'ID est fourni
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
     // Préparer la requête pour récupérer les données du joueur
-    $stmt = $linkpdo->prepare('SELECT * FROM Joueur WHERE Numero_licence = ?');
+    $stmt = $linkpdo->prepare($select_joueur_spec);
     $stmt->execute([$id]);
     $joueur = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -16,14 +17,14 @@ if (isset($_GET['id'])) {
     }
 
     // Préparer la requête pour récupérer tous les commentaires du joueur
-    $stmt = $linkpdo->prepare('SELECT texte, date_commentaire FROM Commentaire WHERE numero_licence = ? ORDER BY date_commentaire DESC');
+    $stmt = $linkpdo->prepare($select_commentaire);
     $stmt->execute([$id]);
     $commentaires = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
 
     // Suppression du joueur si le formulaire de suppression est soumis
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['supprimer'])) {
-    $stmt = $linkpdo->prepare('SELECT Date_Match FROM Participer NATURAL JOIN Match_ WHERE Numero_licence = ?');
+    $stmt = $linkpdo->prepare($select_match);
     $stmt->execute([$id]);
     $match_dates = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
@@ -44,11 +45,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['supprimer'])) {
         $message = "Impossible de supprimer ce joueur : il est associé à un match déjà terminé. Veuillez d'abord supprimer ce match avant de retirer ce joueur.";
     } else {
         // Suppression des commentaires liés
-        $stmt = $linkpdo->prepare('DELETE FROM Commentaire WHERE numero_licence = ?');
+        $stmt = $linkpdo->prepare($delete_commentaire);
         $stmt->execute([$id]);
 
         // Suppression du joueur
-        $stmt = $linkpdo->prepare('DELETE FROM Joueur WHERE Numero_licence = ?');
+        $stmt = $linkpdo->prepare($delete_joueur);
         $stmt->execute([$id]);
 
         header('Location: PageJoueurs.php');
@@ -70,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['supprimer'])) {
             die('Erreur : Champs invalides ou incomplets.');
         }
 
-        $stmt = $linkpdo->prepare('UPDATE Joueur SET Nom = ?, Prenom = ?, Statut = ?, date_naissance = ?, poids = ?, taille = ? WHERE Numero_licence = ?');
+        $stmt = $linkpdo->prepare($update_joueur);
         $stmt->execute([$nom, $prenom, $statut, $date_naissance, $poids, $taille, $id]);
 
         header('Location: PageJoueurs.php');
@@ -81,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['supprimer'])) {
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_comment'])) {
         $nouveau_commentaire = trim($_POST['Commentaire']);
         if (!empty($nouveau_commentaire)) {
-            $stmt = $linkpdo->prepare('INSERT INTO Commentaire (texte, numero_licence, date_commentaire) VALUES (?, ?, NOW())');
+            $stmt = $linkpdo->prepare($insert_commentaire);
             $stmt->execute([$nouveau_commentaire, $id]);
         }
 
@@ -95,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['supprimer'])) {
         $photoPath = '../img/' . basename($photo['name']);
         
         if (move_uploaded_file($photo['tmp_name'], $photoPath)) {
-            $stmt = $linkpdo->prepare('UPDATE Joueur SET Photo = ? WHERE Numero_licence = ?');
+            $stmt = $linkpdo->prepare($update_photo);
             $stmt->execute([$photoPath, $id]);
 
             header('Location: FicheJoueur.php?id=' . $id);

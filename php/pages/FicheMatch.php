@@ -1,5 +1,6 @@
 <?php
 require('../bd/ConnexionBD.php');
+require('../requetesSql.php');
 
 // Initialisation des variables
 global $linkpdo;
@@ -15,7 +16,7 @@ if (isset($_GET['id'])) {
 
 // Récupérer les informations du match si l'ID est valide
 if (empty($errorMessage) && $id) {
-    $stmt = $linkpdo->prepare('SELECT * FROM Match_ WHERE Id_Match = ?');
+    $stmt = $linkpdo->prepare($select_match_spec);
     $stmt->execute([$id]);
     $match = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -36,10 +37,7 @@ if (empty($errorMessage)) {
     $formatDateHeure = $dateHeureFicheMatch->format('d-m-Y / H:i');
 
     // Récupération des joueurs associés au match
-    $stmt = $linkpdo->prepare('SELECT p.Numero_Licence, j.Nom, j.Prenom, p.Titulaire, p.Poste, p.Evaluation
-                               FROM Participer p
-                               INNER JOIN Joueur j ON p.Numero_Licence = j.Numero_Licence
-                               WHERE p.Id_Match = ? AND p.Poste IS NOT NULL');
+    $stmt = $linkpdo->prepare($select_joueurs_match);
     $stmt->execute([$id]);
     $joueurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -60,10 +58,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['supprimer'])) {
         // Suppression du match et des participations associées
         try {
-            $stmt = $linkpdo->prepare('DELETE FROM Participer WHERE Id_Match = ?');
+            $stmt = $linkpdo->prepare($delete_match_participer);
             $stmt->execute([$id]);
 
-            $stmt = $linkpdo->prepare('DELETE FROM Match_ WHERE Id_Match = ?');
+            $stmt = $linkpdo->prepare($delete_match);
             $stmt->execute([$id]);
 
             header('Location: PageMatch.php');
@@ -93,11 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $errorMessage = 'Erreur : Vous ne pouvez pas enregistrer un match avec une date dans le passé.';
             } else {
                 try {
-                    $stmt = $linkpdo->prepare('UPDATE Match_ 
-                                               SET Date_Match = ?, Heure = ?, Lieu_Rencontre = ?, 
-                                                   Nom_Equipe_Adverse = ?, Resultat_Equipe = ?, 
-                                                   Resultat_Equipe_Adverse = ? 
-                                               WHERE Id_Match = ?');
+                    $stmt = $linkpdo->prepare($update_match);
                     $stmt->execute([$Date, $Heure, $Lieu_rencontre, $Nom_Equipe_Adverse, $Resultat_Equipe, $Resultat_Equipe_Adverse, $id]);
 
                     header('Location: PageMatch.php');
@@ -125,9 +119,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 
-<h1>Fiche du match <?= htmlspecialchars($formatDateHeure); ?>
+<h1>Fiche du match <?= htmlspecialchars($formatDateHeure); ?></h1>
 
-<div><a class="return" href="PageMatch.php">Retour</a></div>
+<a class="return" href="PageMatch.php">Retour</a>
 
 <!-- Modale d'erreur -->
 <?php if (!empty($errorMessage)): ?>
