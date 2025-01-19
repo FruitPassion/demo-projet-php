@@ -1,4 +1,4 @@
 <?php
-header("Location: http://localhost/pages/PageConnexion.php");
+header("Location: pages/PageConnexion.php");
 exit();
 ?>
