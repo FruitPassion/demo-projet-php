@@ -10,25 +10,27 @@ $stmt = $linkpdo->prepare($select_joueur);
 $stmt->execute();
 $joueurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+//Fonction qui prend en parametre une requete 
 function getDataFromQuery($linkpdo, $requete, $joueur, $paramAttendu){
     $stmt = $linkpdo->prepare($requete);
     $stmt->execute([$joueur["Numero_licence"]]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
-    if ($result == FALSE){
+    if ($result == FALSE){ //si la variable est faussi ca retourne un -
         return "-";
     } else {
         $temp_value = $result[$paramAttendu];
-        if (is_numeric($temp_value)) {
+        if (is_numeric($temp_value)) { //si la variable est un float ca le convertit en int
             $temp_value = (int)floatval($temp_value);
         }
-        return $temp_value;
+        return $temp_value; //sinon ca renvoie simplement la valeur
     }
 }
-
+//initialisation des variables match
 $matchs_gagnes = 0;
 $matchs_perdus = 0;
 $matchs_nuls = 0;
 
+//calcul des match gagné, perdu et nul
 foreach ($matchs as $match) {
     if ($match['Resultat_Equipe'] > $match['Resultat_Equipe_Adverse']) {
         $matchs_gagnes++;
@@ -39,6 +41,7 @@ foreach ($matchs as $match) {
     }
 }
 
+//calcul des pourcentages 
 $nombre_total_match = count($matchs);
 $pourcentage_matchs_gagnes = $nombre_total_match > 0 ? round(($matchs_gagnes / $nombre_total_match) * 100, 2) : 0;
 $pourcentage_matchs_perdus = $nombre_total_match > 0 ? round(($matchs_perdus / $nombre_total_match) * 100, 2) : 0;
