@@ -36,8 +36,8 @@ CREATE TABLE IF NOT EXISTS Commentaire(
 
 CREATE TABLE IF NOT EXISTS Connexion(
    Id_Connexion INT AUTO_INCREMENT,
-   Identifiant INT ,
-   Mot_de_passe VARCHAR(50) ,
+   Identifiant VARCHAR(50)  ,
+   Mot_de_passe TEXT(50) ,
    PRIMARY KEY(Id_Connexion)
 );
 
@@ -74,6 +74,9 @@ VALUES
 (77,'2025-02-05','20:00:00','Les lions de Gryffondor','Domicile',0,0);
 
 
+INSERT INTO Connexion (Identifiant, Mot_de_passe)
+VALUES ("user", '$2y$10$e3.UHPyvAI2ihZqvBwygJ.1QRO50GuzJXlraK3/laTeLzdFE9oxfe');
+
 INSERT INTO Participer
 (Numero_licence, Id_Match, Titulaire, Evaluation, Poste)
 VALUES
@@ -91,11 +94,4 @@ VALUES
 (66666666,55,1,5,'Gardien'),
 (66666666,66,1,3,'Gardien'),
 (99999999,55,0,5,'Attrapeur'),
-(99999999,66,1,2,'Attrapeur'),
-(66666666,77,1,0,'Attrapeur'),
-(55555555,77,1,0,'Batteur'),
-(12121212,77,1,0,'Batteur'),
-(99999999,77,1,0,'Poursuiveur'),
-(22222222,77,1,0,'Poursuiveur'),
-(33333333,77,1,0,'Poursuiveur'),
-(44444444,77,1,0,'Gardien');
+(99999999,66,1,2,'Attrapeur');

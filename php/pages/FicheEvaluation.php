@@ -1,4 +1,5 @@
 <?php
+require('../checkSession.php');
 require('../bd/ConnexionBD.php');
 require('../requetesSql.php');
 

@@ -1,5 +1,5 @@
 <?php
-// Inclure la connexion à la base de données depuis le dossier "BD"
+require('../checkSession.php');
 require('../bd/ConnexionBD.php');
 require('../requetesSql.php');
 

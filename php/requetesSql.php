@@ -1,5 +1,9 @@
 <?php
 
+// Requete concernant le login
+    // Login
+    $select_login = "SELECT Mot_de_passe FROM Connexion WHERE Identifiant = ?";
+
 //Requetes concernant les pages Joueur
     //Selection information d'un joueur
         $select_joueur = "SELECT Numero_licence, Nom, Prenom, Statut, photo FROM Joueur";

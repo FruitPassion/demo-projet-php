@@ -1,16 +1,21 @@
 <?php
-session_start();
+require('../bd/ConnexionBD.php');
+require('../requetesSql.php');
 
-//Compte acceptés
-$login1 = 'Girafe';
-$mdp1 = 'Savane'; 
-$errorMessage = "";
+session_start();
 
 //Verif Login et mdp ont quelque chose dedans
 if (isset($_POST['login']) && isset($_POST['mdp'])) {
+    $login = $_POST['login'];
+    $mdp = $_POST['mdp'];
+
+    $stmt = $linkpdo->prepare($select_login);
+    $stmt->execute([$login]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
     // Verif si id ET mdp sont corrects
-    if ($_POST['login'] == $login1 && $_POST['mdp'] == $mdp1) {
-        $_SESSION['login'] = $_POST['login'];
+    if ($user && password_verify($mdp, $user['Mot_de_passe'])) {
+        $_SESSION['login'] = $login;
         // Début de la phase de "connexion"
         $_SESSION['connecter'] = true;
 

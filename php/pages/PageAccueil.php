@@ -1,4 +1,6 @@
 <?php
+require('../checkSession.php');
+
 // Si appuit sur deconnection ET suppression des cookies
 if (isset($_POST['deco'])) {
     $_SESSION['connecter'] = false;
