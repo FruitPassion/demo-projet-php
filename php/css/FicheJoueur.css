@@ -15,23 +15,21 @@ h1 {
 
 /* Section des commentaires */
 .commentaires {
-    width: 50%; /* Valeur réduite */
-    max-width: 610px; /* Limite la largeur maximale à 600px */
-    margin: 10px auto; /* Réduit l'espacement autour */
-    padding: 10px; /* Réduit l'espacement interne */
+    width: 50%;
+    margin: 10px auto;
+    padding: 10px;
     background-color: burlywood;
     border-radius: 5px;
     border: 2px solid darkgoldenrod;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-/* Liste des commentaires */
+
 .commentaires ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
 }
 
-/* Chaque commentaire */
 .commentaire {
     margin-bottom: 15px;
     padding: 10px;
@@ -85,18 +83,15 @@ form textarea {
     height: 100px;
 }
 
-
-
 /* Lien de retour */
 .return {
-    padding: 10px 10px;
+    padding: 10px;
     background-color: burlywood;
     color: white;
     border: none;
     cursor: pointer;
     border-radius: 5px;
     font-size: 15px;
-    margin-top: 0%;
     transition: background-color 0.2s ease;
     margin-left: 5%;
 }
@@ -106,10 +101,6 @@ form textarea {
 }
 
 /* Style pour le formulaire de suppression */
-form input[type="hidden"] {
-    display: none;
-}
-
 form button[type="submit"] {
     padding: 10px;
     background-color: red;
@@ -127,7 +118,7 @@ form button[type="submit"]:hover {
     transform: scale(1.05);
 }
 
-/* Style pour enregistrer*/
+/* Style pour enregistrer */
 form button[type="save"] {
     padding: 10px;
     background-color: #28a745;
@@ -145,11 +136,11 @@ form button[type="save"]:hover {
     transform: scale(1.05);
 }
 
+/* Section de la photo */
 .photo-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
 }
 
 .photo {
@@ -165,63 +156,7 @@ form button[type="save"]:hover {
     opacity: 0.8;
 }
 
-.menu-container {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-}
-
-.menu-button {
-    background-color: darkgoldenrod;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 24px;
-}
-
-.menu-content {
-    display: none;
-    position: absolute;
-    top: 40px;
-    left: 0;
-    background-color: antiquewhite;
-    border: 1px solid darkgoldenrod;
-    border-radius: 5px;
-    width: 150px;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
-    z-index: 1;
-}
-
-.menu-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    border-bottom: 1px solid darkgoldenrod;
-}
-
-.menu-content a:hover {
-    background-color: burlywood;
-}
-
-.menu-button:focus + .menu-content,
-.menu-content:hover {
-    display: block;
-}
-
-/* Section des commentaires */
-.commentaires {
-    width: 60%;
-    margin: 20px auto;
-    padding: 15px;
-    background-color: burlywood;
-    border-radius: 5px;
-    border: 2px solid darkgoldenrod;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
+/* Modal */
 .modal {
     display: none;
     position: fixed;
@@ -230,7 +165,6 @@ form button[type="save"]:hover {
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto;
     background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -242,8 +176,8 @@ form button[type="save"]:hover {
     background-color: #fff;
     margin: 15% auto;
     padding: 20px;
-    border: 1px solid #888;
     width: 80%;
+    border: 1px solid #888;
 }
 
 .close {

@@ -23,8 +23,8 @@ if (isset($_GET['id'])) {
     
 
     // Suppression du joueur si le formulaire de suppression est soumis
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['supprimer'])) {
-    $stmt = $linkpdo->prepare($select_match);
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['supprimer'])) {
+    $stmt = $linkpdo->prepare($verif_match);
     $stmt->execute([$id]);
     $match_dates = $stmt->fetchAll(PDO::FETCH_COLUMN);
 

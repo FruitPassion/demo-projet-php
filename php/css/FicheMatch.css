@@ -13,7 +13,6 @@ h1 {
     margin-top: 20px;
 }
 
-/* Section des joueurs titulaires et remplaçants */
 ul {
     list-style-type: none;
     padding: 10px;
@@ -27,18 +26,15 @@ ul {
 ul li {
     padding: 8px;
     margin-bottom: 5px;
-    background-color: #fff8dc; /* Un ton clair pour les éléments */
+    background-color: #fff8dc;
     border-radius: 5px;
     border: 1px solid darkgoldenrod;
 }
 
 ul li:hover {
-    background-color: #f4e1a1; /* Change le fond au survol */
+    background-color: #f4e1a1;
 }
 
-
-
-/* Formulaire */
 form {
     width: 40%;
     margin: 0 auto;
@@ -63,8 +59,7 @@ form input, form select, form textarea {
     border-radius: 5px;
 }
 
-/* Lien de retour */
-.return {
+.return, form button[type="submit"], form button[type="save"] {
     padding: 10px;
     background-color: burlywood;
     color: white;
@@ -72,28 +67,15 @@ form input, form select, form textarea {
     cursor: pointer;
     border-radius: 5px;
     font-size: 15px;
-    margin-left:5%;
     transition: background-color 0.2s ease;
 }
 
-.return:hover {
+.return:hover, form button[type="submit"]:hover, form button[type="save"]:hover {
     background-color: rgb(233, 194, 144);
 }
 
-/* Style pour le formulaire de suppression */
-form input[type="hidden"] {
-    display: none;
-}
-
 form button[type="submit"] {
-    padding: 10px 10px;
-    background-color: #dc3545; /* Rouge */
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.2s ease;
-    font-size: 15px;
+    background-color: #dc3545;
     margin-left: 95%;
 }
 
@@ -102,17 +84,8 @@ form button[type="submit"]:hover {
     transform: scale(1.05);
 }
 
-/* Style pour le formulaire d'enregistrement */
-
 form button[type="save"] {
-    padding: 10px 10px;
     background-color: green;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.2s ease;
-    font-size: 15px;
     margin-top: 15px;
 }
 
@@ -121,21 +94,11 @@ form button[type="save"]:hover {
     transform: scale(1.05);
 }
 
-
-
-
-/* Champs grisés (readonly ou disabled) */
-input[readonly], input[disabled], select[disabled], textarea[readonly] {
-    background-color: #f2f2f2; /* Fond gris clair */
-    color: #b0b0b0; /* Texte gris */
-    cursor: not-allowed; /* Curseur interdit */
-    border: 1px solid #ccc; /* Bordure gris clair */
-}
-
-.grise {
+input[readonly], input[disabled], select[disabled], textarea[readonly], .grise {
     background-color: #f2f2f2;
     color: #b0b0b0;
     cursor: not-allowed;
+    border: 1px solid #ccc;
 }
 
 .joueur-btn {
@@ -148,17 +111,13 @@ input[readonly], input[disabled], select[disabled], textarea[readonly] {
     text-decoration: none;
     text-align: center;
     border-radius: 5px;
-    border: none;
-    cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 .joueur-btn:hover {
     background-color: burlywood;
-    text-decoration: none;
 }
 
-/* Style de base pour le bouton */
 button {
     padding: 10px 20px;
     background-color: green;
@@ -170,27 +129,17 @@ button {
     transition: background-color 0.3s, transform 0.3s;
 }
 
-/* Style pour l'état survolé */
 button:hover {
     background-color: #45a049;
     transform: scale(1.05);
 }
 
-/* Style pour le bouton désactivé */
 button.disabled-btn {
     background-color: #d3d3d3;
     color: #a9a9a9;
     cursor: not-allowed;
-    transform: none;
 }
 
-/* Optionnel : Style pour le texte du bouton lorsqu'il est désactivé */
-button.disabled-btn:hover {
-    background-color: #d3d3d3;
-    transform: none;
-}
-
-/* Style de la modale */
 .modal {
     display: none;
     position: fixed;
@@ -209,22 +158,20 @@ button.disabled-btn:hover {
     border-radius: 5px;
     width: 80%;
     max-width: 500px;
-    position: relative; /* Permet de positionner des éléments enfants en absolu */
+    position: relative;
 }
 
-/* Bouton de fermeture */
 .close-btn {
-    position: absolute; /* Positionnement absolu par rapport au parent (modal-content) */
-    top: 10px; /* Distance depuis le haut */
-    right: 10px; /* Distance depuis la droite */
+    position: absolute;
+    top: 10px;
+    right: 10px;
     color: black;
     font-size: 24px;
     font-weight: bold;
     text-decoration: none;
 }
 
-.close-btn:hover,
-.close-btn:focus {
+.close-btn:hover {
     color: red;
     cursor: pointer;
 }

@@ -3,7 +3,7 @@ body {
     text-align: center;
     margin: 0;
     padding: 0;
-    background-color: antiquewhite; 
+    background-color: antiquewhite;
 }
 
 header {
@@ -11,7 +11,7 @@ header {
     padding: 20px;
     font-size: 48px;
     font-weight: bold;
-    border-bottom: 8px solid darkgoldenrod; 
+    border-bottom: 8px solid darkgoldenrod;
 }
 
 .btn-ajouter {
@@ -27,7 +27,7 @@ header {
 }
 
 .btn-ajouter:hover {
-    background-color: goldenrod; 
+    background-color: goldenrod;
 }
 
 table {

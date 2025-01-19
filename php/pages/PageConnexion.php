@@ -47,16 +47,17 @@ if (isset($_POST['deco'])) {
  
             <form method="post" action="">
                 <label for="login">Login :</label>
-                <input type="text" id="login" name="login" required><br>
+                <input type="text" id="login" name="login" class="input-field" required><br>
+
                 <label for="mdp">Mot de passe :</label>
-                <input type="password" id="mdp" name="mdp" required><br><br>
+                <input type="password" id="mdp" name="mdp" class="input-field" required><br><br>
 
-            <!-- Affichage du message d'erreur si présent -->
-            <?php if (!empty($errorMessage)): ?>
-                <p style="color: red;"><?php echo $errorMessage; ?></p>
-            <?php endif; ?>
+                <!-- Affichage du message d'erreur si présent -->
+                <?php if (!empty($errorMessage)): ?>
+                    <p class="error-message"><?php echo $errorMessage; ?></p>
+                <?php endif; ?>
 
-                <button type="submit">Envoyer</button> 
+                <button type="submit" class="submit-btn">Envoyer</button> 
             </form>
         
     </div>
