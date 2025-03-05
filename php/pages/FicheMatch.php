@@ -173,7 +173,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif; ?>
 
     <label for="Resultat_Equipe">Résultat équipe :</label>
-    <input type="number" id="Resultat_Equipe" name="Resultat_Equipe" value="<?= htmlspecialchars($match['Resultat_Equipe_Adverse'] ?? 0); ?>" class="<?= !$isDateDansLePasse ? 'grise' : ''; ?>" <?= !$isDateDansLePasse ? 'readonly' : ''; ?> required>
+    <input type="number" id="Resultat_Equipe" name="Resultat_Equipe" value="<?= htmlspecialchars($match['Resultat_Equipe'] ?? 0); ?>" class="<?= !$isDateDansLePasse ? 'grise' : ''; ?>" <?= !$isDateDansLePasse ? 'readonly' : ''; ?> required>
     <?php if (!$isDateDansLePasse): ?>
         <input type="hidden" name="Resultat_Equipe" value="<?= htmlspecialchars($match['Resultat_Equipe']); ?>">
     <?php endif; ?>
